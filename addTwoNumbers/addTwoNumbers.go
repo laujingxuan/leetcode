@@ -55,44 +55,6 @@ func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
 		}
 	}
 	return firstListNode
-	// num1 = append(num1, currentNodel1.Val)
-	// for currentNodel1.Next != nil {
-	// 	currentNodel1 = currentNodel1.Next
-	// 	num1 = append(num1, currentNodel1.Val)
-	// }
-	// var number1, number2 int
-	// for x := 0; x < len(num1); x++ {
-	// 	number1 += num1[x] * int(math.Pow(10, float64(x)))
-	// }
-
-	// num2 = append(num2, currentNodel2.Val)
-	// for currentNodel2.Next != nil {
-	// 	currentNodel2 = currentNodel2.Next
-	// 	num2 = append(num2, currentNodel2.Val)
-	// }
-	// for x := 0; x < len(num2); x++ {
-	// 	number2 += num2[x] * int(math.Pow(10, float64(x)))
-	// }
-	// totalNumber := number1 + number2
-	// lastDigit := totalNumber % 10
-	// firstListNode := &ListNode{
-	// 	Val: lastDigit,
-	// }
-	// currentListNode := firstListNode
-	// for totalNumber > 9 {
-	// 	totalNumber = totalNumber / 10
-	// 	newListNode := &ListNode{
-	// 		Val: totalNumber % 10,
-	// 	}
-	// 	currentListNode.Next = newListNode
-	// 	currentListNode = newListNode
-	// }
-
-	return firstListNode
-}
-
-func Pow(i1, i2 int) {
-	panic("unimplemented")
 }
 
 func main() {
