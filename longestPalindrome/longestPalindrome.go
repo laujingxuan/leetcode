@@ -10,10 +10,6 @@ func longestPalindrome(s string) string {
 	for x := 0; x < len(s); x++ {
 		oddPalindrome := expandSelf(x, x, s)
 		evenPalindrome := expandSelf(x, x+1, s)
-		if x == 4 {
-			fmt.Println("oddPalindrome:", oddPalindrome)
-			fmt.Println("evenPalindrome:", evenPalindrome)
-		}
 		longPalin := evenPalindrome
 		if len(oddPalindrome) > len(evenPalindrome) {
 			longPalin = oddPalindrome
