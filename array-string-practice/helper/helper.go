@@ -1,6 +1,7 @@
 package helper
 
 import (
+	"math"
 	"strings"
 )
 
@@ -74,4 +75,42 @@ func IsPalindromePermutation(s string) bool {
 	}
 
 	return numOfOdd <= 1
+}
+
+// There are three types of edits that can be performed on strinsg: insert a character, remove a character, or replace a character. Given two strings, write a function to check if they are one edit (or zero edits) away
+func IsOneAway(s, p string) bool {
+	if len(s) == len(p) {
+		diffCount := 0
+		for x := 0; x < len(s); x++ {
+			if s[x] != p[x] {
+				diffCount += 1
+			}
+			if diffCount > 1 {
+				return false
+			}
+		}
+		return true
+	}
+	//another way is to keep track of the index and compare. Like if unmatch, then move longer string index + 1. Else, move both string index + 1
+	if math.Abs(float64(len(s)-len(p))) == 1 {
+		shorter := p
+		if len(s) < len(p) {
+			shorter = s
+		}
+		sBehind := s
+		pBehind := p
+		for x := 0; x < len(shorter); x++ {
+			if s[x] != p[x] {
+				sBehind = s[x:]
+				pBehind = p[x:]
+				break
+			}
+		}
+		if len(sBehind) > len(pBehind) {
+			return sBehind[1:] == pBehind
+		} else {
+			return pBehind[1:] == sBehind
+		}
+	}
+	return false
 }
