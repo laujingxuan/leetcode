@@ -8,5 +8,6 @@ import (
 func main() {
 	// fmt.Println(helper.IsUnique("abcda"))
 	// fmt.Println(helper.CheckPermutation("abcd", "db"))
-	fmt.Println(helper.UrLify(" Mr John Smith    ", 15))
+	// fmt.Println(helper.UrLify(" Mr John Smith    ", 15))
+	fmt.Println(helper.IsPalindromePermutation("tactcoa"))
 }

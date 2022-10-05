@@ -1,6 +1,8 @@
 package helper
 
-import "strings"
+import (
+	"strings"
+)
 
 //Implements an algorithm to determine if a string has all unique characters (Without hashmap)
 func IsUnique(input string) bool {
@@ -56,4 +58,20 @@ func UrLify(s string, trueLength int) string {
 		}
 	}
 	return sb.String()
+}
+
+//Is the string a permutation of a palindrome. A palindrome is a word or phrase that is the same forwards and backwards. A permutation is a rearrangement of letters
+func IsPalindromePermutation(s string) bool {
+	charList := make([]int, 128)
+	numOfOdd := 0
+	for x := 0; x < len(s); x++ {
+		charList[s[x]-1] = charList[s[x]-1] + 1
+		if charList[s[x]-1]%2 != 0 {
+			numOfOdd += 1
+		} else {
+			numOfOdd -= 1
+		}
+	}
+
+	return numOfOdd <= 1
 }
