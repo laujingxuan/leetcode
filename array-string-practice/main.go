@@ -6,5 +6,6 @@ import (
 )
 
 func main() {
-	fmt.Println(helper.IsUnique("abcda"))
+	// fmt.Println(helper.IsUnique("abcda"))
+	fmt.Println(helper.CheckPermutation("abcd", "db"))
 }
