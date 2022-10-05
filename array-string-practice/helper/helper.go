@@ -2,6 +2,7 @@ package helper
 
 import (
 	"math"
+	"strconv"
 	"strings"
 )
 
@@ -113,4 +114,29 @@ func IsOneAway(s, p string) bool {
 		}
 	}
 	return false
+}
+
+//A method to perform basic string compression using the counts of repeated characters. For example. the string aabcccccaaa would become a2b1c5a3
+func StringCompression(s string) string {
+	if len(s) <= 1 {
+		return s
+	}
+	var sb strings.Builder
+	trackCount := 0
+	for x := 0; x < len(s)-1; x++ {
+		trackCount += 1
+		if s[x] != s[x+1] {
+			sb.WriteString(string(s[x]) + strconv.Itoa(trackCount))
+			trackCount = 0
+		}
+	}
+	if trackCount != 0 {
+		sb.WriteString(string(s[len(s)-1]) + strconv.Itoa(trackCount))
+	}
+	compressedString := sb.String()
+	if len(compressedString) > len(s) {
+		return s
+	}
+
+	return compressedString
 }
