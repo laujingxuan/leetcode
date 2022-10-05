@@ -157,3 +157,24 @@ func RotateMatrix(matrix [][]int) {
 		}
 	}
 }
+
+// If an element in an MxN matrix is 0, both it's row and column is set to 0
+func ZeroMatrix(matrix [][]int) {
+	fmt.Println(matrix)
+	recordMap := map[int]int{}
+	for i := 0; i < len(matrix); i++ {
+		for y := 0; y < len(matrix[0]); y++ {
+			if matrix[i][y] == 0 {
+				recordMap[i] = y
+			}
+		}
+	}
+	for k, y := range recordMap {
+		for i := 0; i < len(matrix); i++ {
+			matrix[i][y] = 0
+		}
+		for i := 0; i < len(matrix[0]); i++ {
+			matrix[k][i] = 0
+		}
+	}
+}
