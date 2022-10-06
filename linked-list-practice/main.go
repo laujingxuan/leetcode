@@ -53,4 +53,5 @@ func main() {
 	// sumList := sumListWithRecurse(&p21, &l21, 0)
 	// printLinkedList(sumList)
 	fmt.Println(isPalindrome(&p21))
+	fmt.Println(isPalindromeWithRecurse(&p21))
 }

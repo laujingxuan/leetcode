@@ -204,3 +204,50 @@ func isPalindrome(node *ListNode) bool {
 	}
 	return true
 }
+
+//Alternate solution
+func isPalindromeWithRecurse(node *ListNode) bool {
+	length := lengthOfList(node)
+	output := isPalindromeRecurse(node, length)
+	return output.result
+}
+
+type Result struct {
+	node   *ListNode
+	result bool
+}
+
+func isPalindromeRecurse(node *ListNode, length int) Result {
+	if node == nil || length <= 0 {
+		//Even number of nodes
+		return Result{node, true}
+	} else if length == 1 {
+		//Odd number of nodes
+		return Result{node.Next, true}
+	}
+
+	//Recursive on subList
+	res := isPalindromeRecurse(node.Next, length-2)
+
+	//if child calls are not a palindrome, pass back the failed result up
+	if !res.result || res.node == nil {
+		return res
+	}
+
+	//Check if matches corresponding node on other side
+	res.result = node.Data == res.node.Data
+
+	//return corresponding node
+	res.node = res.node.Next
+
+	return res
+}
+
+func lengthOfList(node *ListNode) int {
+	size := 0
+	for node != nil {
+		size++
+		node = node.Next
+	}
+	return size
+}
