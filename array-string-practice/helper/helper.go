@@ -1,12 +1,13 @@
 package helper
 
 import (
+	"fmt"
 	"math"
 	"strconv"
 	"strings"
 )
 
-//Implements an algorithm to determine if a string has all unique characters (Without hashmap)
+// Implements an algorithm to determine if a string has all unique characters (Without hashmap)
 func IsUnique(input string) bool {
 	//only 128 chars in AsCii
 	boolArray := make([]bool, 128)
@@ -19,8 +20,8 @@ func IsUnique(input string) bool {
 	return true
 }
 
-//Given two strings, write a method to decide if one is a permutation of the other
-//A permutation is an arrangement of objects in a definite order. For example, the permutation of set A={1,6} is 2, such as {1,6}, {6,1}.
+// Given two strings, write a method to decide if one is a permutation of the other
+// A permutation is an arrangement of objects in a definite order. For example, the permutation of set A={1,6} is 2, such as {1,6}, {6,1}.
 func CheckPermutation(a, b string) bool {
 	//alternate implementation without hashmap
 	//1) sort the stings and compare
@@ -49,7 +50,7 @@ func CheckPermutation(a, b string) bool {
 	return len(mapB) == 0
 }
 
-//Write a method to replace all spaces in a string with '%20'. You may assume that the string has sufficient space at the end to hold the additional characters and that you are given the 'true' length of the string
+// Write a method to replace all spaces in a string with '%20'. You may assume that the string has sufficient space at the end to hold the additional characters and that you are given the 'true' length of the string
 func UrLify(s string, trueLength int) string {
 	var sb strings.Builder
 	for x := 0; x < trueLength; x++ {
@@ -62,7 +63,7 @@ func UrLify(s string, trueLength int) string {
 	return sb.String()
 }
 
-//Is the string a permutation of a palindrome. A palindrome is a word or phrase that is the same forwards and backwards. A permutation is a rearrangement of letters
+// Is the string a permutation of a palindrome. A palindrome is a word or phrase that is the same forwards and backwards. A permutation is a rearrangement of letters
 func IsPalindromePermutation(s string) bool {
 	charList := make([]int, 128)
 	numOfOdd := 0
@@ -116,7 +117,7 @@ func IsOneAway(s, p string) bool {
 	return false
 }
 
-//A method to perform basic string compression using the counts of repeated characters. For example. the string aabcccccaaa would become a2b1c5a3
+// A method to perform basic string compression using the counts of repeated characters. For example. the string aabcccccaaa would become a2b1c5a3
 func StringCompression(s string) string {
 	if len(s) <= 1 {
 		return s
@@ -139,4 +140,41 @@ func StringCompression(s string) string {
 	}
 
 	return compressedString
+}
+
+// Rotate the matrix by 90 degrees
+func RotateMatrix(matrix [][]int) {
+	fmt.Println(matrix)
+	for i := 0; i < len(matrix); i++ {
+		lastInd := len(matrix) - i - 1
+		for y := i; y < lastInd; y++ {
+			offset := y - i
+			temp := matrix[i][y]
+			matrix[i][y] = matrix[lastInd-offset][i]
+			matrix[lastInd-offset][i] = matrix[lastInd][lastInd-offset]
+			matrix[lastInd][lastInd-offset] = matrix[y][lastInd]
+			matrix[y][lastInd] = temp
+		}
+	}
+}
+
+// If an element in an MxN matrix is 0, both it's row and column is set to 0
+func ZeroMatrix(matrix [][]int) {
+	fmt.Println(matrix)
+	recordMap := map[int]int{}
+	for i := 0; i < len(matrix); i++ {
+		for y := 0; y < len(matrix[0]); y++ {
+			if matrix[i][y] == 0 {
+				recordMap[i] = y
+			}
+		}
+	}
+	for k, y := range recordMap {
+		for i := 0; i < len(matrix); i++ {
+			matrix[i][y] = 0
+		}
+		for i := 0; i < len(matrix[0]); i++ {
+			matrix[k][i] = 0
+		}
+	}
 }
