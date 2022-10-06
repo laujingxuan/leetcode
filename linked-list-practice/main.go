@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 var (
 	l13 = ListNode{
 		Data: 1,
@@ -13,19 +15,20 @@ var (
 		Next: &l12,
 	}
 	l23 = ListNode{
-		Data: 4,
+		Data: 3,
 		Next: &l11,
 	}
 	l22 = ListNode{
-		Data: 5,
+		Data: 2,
 		Next: &l23,
 	}
 	l21 = ListNode{
-		Data: 6,
+		Data: 2,
 		Next: &l22,
 	}
+
 	p23 = ListNode{
-		Data: 4,
+		Data: 6,
 	}
 	p22 = ListNode{
 		Data: 5,
@@ -47,6 +50,7 @@ func main() {
 	// deleteMiddleNode(&l23)
 	// printLinkedList(&l21)
 	// sumList := sumList(&p21, &l21)
-	sumList := sumListWithRecurse(&p21, &l21, 0)
-	printLinkedList(sumList)
+	// sumList := sumListWithRecurse(&p21, &l21, 0)
+	// printLinkedList(sumList)
+	fmt.Println(isPalindrome(&p21))
 }

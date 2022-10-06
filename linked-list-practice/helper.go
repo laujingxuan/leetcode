@@ -7,6 +7,11 @@ type ListNode struct {
 	Next *ListNode
 }
 
+type StringListNode struct {
+	Data string
+	Next *StringListNode
+}
+
 //Remove duplicates from an unsorted linked list without using temporary buffer
 func removeDupsWithoutBuffer(node *ListNode) {
 	firstCurrentNode := node
@@ -170,4 +175,32 @@ func sumListWithRecurse(first, second *ListNode, carry int) *ListNode {
 	}
 
 	return result
+}
+
+//To check if a linked list is a palindrome
+//Palindrome: a word, phrase, or sequence that reads the same backwards as forwards
+func isPalindrome(node *ListNode) bool {
+	fastNode := node
+	slowNode := node
+	firstHalf := []int{node.Data}
+	//slow runner fast runner
+	for fastNode.Next != nil && fastNode.Next.Next != nil {
+		slowNode = slowNode.Next
+		fastNode = fastNode.Next.Next
+		firstHalf = append(firstHalf, slowNode.Data)
+	}
+	fmt.Println("firstHalf: ", firstHalf)
+	//odd number of nodes (compare first node up to before slowNode with slowNode.Next)
+	if fastNode.Next == nil {
+		//remove the last one as last one is the center
+		firstHalf = firstHalf[:len(firstHalf)-1]
+	}
+	//even number of nodes (compare first node up to slowNode with slowNode.Next)
+	for x := len(firstHalf) - 1; x >= 0; x-- {
+		if firstHalf[x] != slowNode.Next.Data {
+			return false
+		}
+		slowNode = slowNode.Next
+	}
+	return true
 }
