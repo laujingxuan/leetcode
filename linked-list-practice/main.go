@@ -1,7 +1,5 @@
 package main
 
-import "fmt"
-
 var (
 	l13 = ListNode{
 		Data: 1,
@@ -26,6 +24,17 @@ var (
 		Data: 6,
 		Next: &l22,
 	}
+	p23 = ListNode{
+		Data: 4,
+	}
+	p22 = ListNode{
+		Data: 5,
+		Next: &p23,
+	}
+	p21 = ListNode{
+		Data: 6,
+		Next: &p22,
+	}
 )
 
 func main() {
@@ -33,5 +42,11 @@ func main() {
 	// removeDupsWithoutBuffer(&l21)
 	// printLinkedList(&l21)
 	// fmt.Println(findEveryKthToLastElements(&l21, 3))
-	fmt.Println(findKthToLastElement(&l21, 3))
+	// fmt.Println(findKthToLastElement(&l21, 3))
+	// printLinkedList(&l21)
+	// deleteMiddleNode(&l23)
+	// printLinkedList(&l21)
+	// sumList := sumList(&p21, &l21)
+	sumList := sumListWithRecurse(&p21, &l21, 0)
+	printLinkedList(sumList)
 }

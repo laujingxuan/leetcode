@@ -81,3 +81,93 @@ func findKthToLastElement(node *ListNode, k int) int {
 	}
 	return p1Node.Next.Data
 }
+
+//Delete one of the nodes in a linked list when you are given access to that node
+func deleteMiddleNode(middleNode *ListNode) {
+	//copy the next node to the current node
+	currentNode := middleNode
+	for currentNode.Next != nil {
+		currentNode.Data = currentNode.Next.Data
+		if currentNode.Next.Next == nil {
+			currentNode.Next = nil
+			break
+		}
+		currentNode = currentNode.Next
+	}
+}
+
+//Two numbers represented by a linked list where each node contains a single digit. The digits are stored in reverse order. Return sum of the linked list
+//7 -> 1 -> 6 + 5 -> 9 -> 2 = 617+ 295
+func sumList(first, second *ListNode) *ListNode {
+	returnListNode := &ListNode{
+		Data: (first.Data + second.Data) % 10,
+	}
+	tenthDigit := (first.Data + second.Data) / 10
+	currentFirst := first
+	currentSecond := second
+	currentReturn := returnListNode
+	for currentFirst.Next != nil && currentSecond.Next != nil {
+		currentReturn.Next = &ListNode{
+			Data: (currentFirst.Next.Data + currentSecond.Next.Data + tenthDigit) % 10,
+		}
+		tenthDigit = (currentFirst.Next.Data + currentSecond.Next.Data + tenthDigit) / 10
+		currentReturn = currentReturn.Next
+		currentFirst = currentFirst.Next
+		currentSecond = currentSecond.Next
+	}
+	for currentFirst.Next != nil {
+		currentReturn.Next = &ListNode{
+			Data: (currentFirst.Next.Data + tenthDigit) % 10,
+		}
+		tenthDigit = (currentFirst.Next.Data + tenthDigit) / 10
+		currentReturn = currentReturn.Next
+		currentFirst = currentFirst.Next
+	}
+
+	for currentSecond.Next != nil {
+		currentReturn.Next = &ListNode{
+			Data: (currentSecond.Next.Data + tenthDigit) % 10,
+		}
+		tenthDigit = (currentSecond.Next.Data + tenthDigit) / 10
+		currentReturn = currentReturn.Next
+		currentSecond = currentSecond.Next
+	}
+
+	if tenthDigit != 0 {
+		currentReturn.Next = &ListNode{
+			Data: currentSecond.Next.Data,
+		}
+	}
+
+	return returnListNode
+}
+
+func sumListWithRecurse(first, second *ListNode, carry int) *ListNode {
+	if first == nil && second == nil && carry == 0 {
+		return nil
+	}
+
+	result := &ListNode{}
+	value := carry
+	if first != nil {
+		value += first.Data
+	}
+	if second != nil {
+		value += second.Data
+	}
+	result.Data = value % 10
+	carry = value / 10
+	if first != nil || second != nil {
+		var more *ListNode
+		if first != nil && second != nil {
+			more = sumListWithRecurse(first.Next, second.Next, carry)
+		} else if first == nil {
+			more = sumListWithRecurse(first, second.Next, carry)
+		} else {
+			more = sumListWithRecurse(first.Next, second, carry)
+		}
+		result.Next = more
+	}
+
+	return result
+}
