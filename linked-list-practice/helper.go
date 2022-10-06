@@ -251,3 +251,44 @@ func lengthOfList(node *ListNode) int {
 	}
 	return size
 }
+
+//Check if two linked lists intesect. Return the intersecting node
+func intersection(first, second *ListNode) *ListNode {
+	checkMap := map[int][]*ListNode{}
+	currentFirstNode := first
+	for currentFirstNode != nil {
+		if elem, ok := checkMap[currentFirstNode.Data]; ok {
+			elem = append(elem, currentFirstNode)
+			checkMap[currentFirstNode.Data] = elem
+		} else {
+			checkMap[currentFirstNode.Data] = []*ListNode{currentFirstNode}
+		}
+		currentFirstNode = currentFirstNode.Next
+	}
+	currentSecondNode := second
+	intersectingNodes := []*ListNode{}
+	for currentSecondNode != nil {
+		if elem, ok := checkMap[currentSecondNode.Data]; ok {
+			for _, node := range elem {
+				if node == currentSecondNode {
+					intersectingNodes = append(intersectingNodes, node)
+				}
+			}
+		}
+		currentSecondNode = currentSecondNode.Next
+	}
+	for _, node := range intersectingNodes {
+		currentNode := node
+		isIntersectNode := true
+		for x := 0; x < len(intersectingNodes)-1; x++ {
+			if currentNode.Next == nil {
+				isIntersectNode = false
+				break
+			}
+		}
+		if isIntersectNode {
+			return node
+		}
+	}
+	return nil
+}

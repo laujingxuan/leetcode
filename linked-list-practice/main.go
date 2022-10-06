@@ -4,14 +4,14 @@ import "fmt"
 
 var (
 	l13 = ListNode{
-		Data: 1,
+		Data: 13,
 	}
 	l12 = ListNode{
-		Data: 2,
+		Data: 12,
 		Next: &l13,
 	}
 	l11 = ListNode{
-		Data: 3,
+		Data: 11,
 		Next: &l12,
 	}
 	l23 = ListNode{
@@ -29,6 +29,7 @@ var (
 
 	p23 = ListNode{
 		Data: 6,
+		// Next: &l11,
 	}
 	p22 = ListNode{
 		Data: 5,
@@ -52,6 +53,13 @@ func main() {
 	// sumList := sumList(&p21, &l21)
 	// sumList := sumListWithRecurse(&p21, &l21, 0)
 	// printLinkedList(sumList)
-	fmt.Println(isPalindrome(&p21))
-	fmt.Println(isPalindromeWithRecurse(&p21))
+	// fmt.Println(isPalindrome(&p21))
+	// fmt.Println(isPalindromeWithRecurse(&p21))
+	node := intersection(&p21, &l21)
+	if node != nil {
+		fmt.Println(node.Data)
+	} else {
+		fmt.Println("No intersection")
+	}
+
 }
