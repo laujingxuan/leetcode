@@ -292,3 +292,29 @@ func intersection(first, second *ListNode) *ListNode {
 	}
 	return nil
 }
+
+//Given a circular linked list, returns the node at the beginning of the loop
+//A -> B ->C -> D ->E -> C =====> C is the beginning of the loop
+func loopDetection(node *ListNode) *ListNode {
+	//alternate way is used slowNode, fastNode => two nodes will meet at loopsize-k node (k is the number of nodes before the start of circular link)
+	//intersect point can be found by moving 1 step again from head and loopsize-k node until meet (both are k steps from intersection point)
+	linkMap := map[*ListNode]bool{}
+	currentNode := node
+	for currentNode != nil {
+		if _, ok := linkMap[currentNode]; ok {
+			return currentNode
+		}
+		linkMap[currentNode] = true
+		currentNode = currentNode.Next
+	}
+	return nil
+}
+
+//helper to convert linked list to circular
+func ConvertSinglyToCircular(l *ListNode) {
+	p := l
+	for p.Next != nil {
+		p = p.Next
+	}
+	p.Next = l
+}

@@ -4,14 +4,14 @@ import "fmt"
 
 var (
 	l13 = ListNode{
-		Data: 13,
+		Data: 6,
 	}
 	l12 = ListNode{
-		Data: 12,
+		Data: 5,
 		Next: &l13,
 	}
 	l11 = ListNode{
-		Data: 11,
+		Data: 4,
 		Next: &l12,
 	}
 	l23 = ListNode{
@@ -23,7 +23,7 @@ var (
 		Next: &l23,
 	}
 	l21 = ListNode{
-		Data: 2,
+		Data: 1,
 		Next: &l22,
 	}
 
@@ -55,11 +55,17 @@ func main() {
 	// printLinkedList(sumList)
 	// fmt.Println(isPalindrome(&p21))
 	// fmt.Println(isPalindromeWithRecurse(&p21))
-	node := intersection(&p21, &l21)
+	// node := intersection(&p21, &l21)
+	// if node != nil {
+	// 	fmt.Println(node.Data)
+	// } else {
+	// 	fmt.Println("No intersection")
+	// }
+	ConvertSinglyToCircular(&l21)
+	node := loopDetection(&l21)
 	if node != nil {
 		fmt.Println(node.Data)
 	} else {
-		fmt.Println("No intersection")
+		fmt.Println("No circle")
 	}
-
 }
