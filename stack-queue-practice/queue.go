@@ -84,3 +84,70 @@ func (q *QueueWithStacks) moveValueIfNeeded() {
 		}
 	}
 }
+
+// <------------------------------------ Queue implementation for animal shelter ---------------------------------------->
+type animalNode struct {
+	isDog bool
+	name  string
+	next  *animalNode
+}
+
+type animalShelter struct {
+	Last  *animalNode
+	First *animalNode
+}
+
+func (a *animalShelter) enqueue(isDog bool, name string) {
+	newAnimal := animalNode{isDog: isDog, name: name}
+	if a.Last == nil {
+		a.Last = &newAnimal
+		a.First = &newAnimal
+		return
+	}
+	a.Last.next = &newAnimal
+	a.Last = &newAnimal
+}
+
+func (a *animalShelter) dequeueAny() (isDog bool, name string) {
+	if a.First != nil {
+		isDog = a.First.isDog
+		name = a.First.name
+		if a.First.next == nil {
+			a.First = nil
+			a.Last = nil
+			return
+		}
+		a.First = a.First.next
+	}
+	return
+}
+
+func (a *animalShelter) isEmpty() bool {
+	return a.First == nil
+}
+
+func (a *animalShelter) dequeueDogOrCat(isDog bool) (name string) {
+	tempShelterStack := animalShelter{}
+	for !a.isEmpty() {
+		isAnimalDog, animalName := a.dequeueAny()
+		if isAnimalDog == isDog {
+			a.changeTempBackIntoRealShelter(&tempShelterStack)
+			return animalName
+		}
+		// tempNode := animalNode{isDog: isAnimalDog, name: animalName}
+		// tempNode.next = tempShelterStack.First
+		// tempShelterStack.First = &tempNode
+		tempShelterStack.enqueue(isAnimalDog, animalName)
+	}
+	a.changeTempBackIntoRealShelter(&tempShelterStack)
+	return
+}
+
+func (a *animalShelter) changeTempBackIntoRealShelter(temp *animalShelter) {
+	for !a.isEmpty() {
+		isDog, animalName := a.dequeueAny()
+		temp.enqueue(isDog, animalName)
+	}
+	a.Last = temp.Last
+	a.First = temp.First
+}
