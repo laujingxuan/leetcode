@@ -86,6 +86,7 @@ func (q *QueueWithStacks) moveValueIfNeeded() {
 }
 
 // <------------------------------------ Queue implementation for animal shelter ---------------------------------------->
+// Another cleaner method is keep dog and cat as two separate queues and add a timestamp to the animal node. For example animalShelter has a order field as 0, whenever an animal is enqueue, the order value will be set to the node while animalShelter order value ++. By doing so, we can know which animal from dog and cat queue is the older animal (having smaller order value)
 type animalNode struct {
 	isDog bool
 	name  string
