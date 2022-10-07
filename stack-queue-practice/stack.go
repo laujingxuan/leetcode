@@ -162,18 +162,11 @@ func sortStack(unsorted *MyStack) *MyStack {
 	sortedStack := MyStack{}
 	for !unsorted.isEmpty() {
 		temp := unsorted.pop()
-		isPop := false
-		for !sortedStack.isEmpty() {
-			if sortedStack.peek() > temp {
-				sortedStack.push(temp)
-				isPop = true
-				break
-			}
+		for !sortedStack.isEmpty() && sortedStack.peek() <= temp {
 			unsorted.push(sortedStack.pop())
 		}
-		if !isPop {
-			sortedStack.push(temp)
-		}
+		sortedStack.push(temp)
+
 	}
 	return &sortedStack
 }
