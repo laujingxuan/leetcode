@@ -72,27 +72,27 @@ type SetOfStacks struct {
 	stackList        []*StackWithCapacity
 }
 
-func (s *SetOfStacks) push(newData int) {
-	var currentStack *StackWithCapacity
+func (s *SetOfStacks) lastStack() *StackWithCapacity {
 	if len(s.stackList) == 0 {
-		currentStack = &StackWithCapacity{stackCapacity: s.maxStackCapacity}
-		currentStack.push(newData)
-		s.stackList = append(s.stackList, currentStack)
-		return
+		newStack := StackWithCapacity{stackCapacity: s.maxStackCapacity}
+		s.stackList = append(s.stackList, &newStack)
+		return &newStack
 	}
-	currentStack = s.stackList[len(s.stackList)-1]
+	currentStack := s.stackList[len(s.stackList)-1]
+	return currentStack
+}
+func (s *SetOfStacks) push(newData int) {
+	currentStack := s.lastStack()
 	if currentStack.isFull() {
-		currentStack := &StackWithCapacity{stackCapacity: s.maxStackCapacity}
-		currentStack.push(newData)
-		s.stackList = append(s.stackList, currentStack)
-		return
+		newStack := StackWithCapacity{stackCapacity: s.maxStackCapacity}
+		s.stackList = append(s.stackList, &newStack)
+		currentStack = &newStack
 	}
 	currentStack.push(newData)
-
 }
 
 func (s *SetOfStacks) pop() int {
-	currentStack := s.stackList[len(s.stackList)-1]
+	currentStack := s.lastStack()
 	data := currentStack.pop()
 	if currentStack.stackCapacity == s.maxStackCapacity {
 		//means currentStack is empty, remove the stack
@@ -105,7 +105,7 @@ func (s *SetOfStacks) peek() int {
 	if len(s.stackList) == 0 {
 		return -1
 	}
-	currentStack := s.stackList[len(s.stackList)-1]
+	currentStack := s.lastStack()
 	return currentStack.peek()
 }
 
@@ -113,7 +113,7 @@ func (s *SetOfStacks) isEmpty() bool {
 	return len(s.stackList) == 0
 }
 
-// <----------------------------------- Stack --------------------------------------->
+// <----------------------------------- Stack With Capacity --------------------------------------->
 type StackWithCapacity struct {
 	Top           *StackNode
 	stackCapacity int
