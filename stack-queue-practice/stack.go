@@ -155,3 +155,25 @@ func (s *StackWithCapacity) peek() int {
 func (s *StackWithCapacity) isEmpty() bool {
 	return s.Top == nil
 }
+
+// <----------------------------------- Other functions --------------------------------------->
+//Sort a stack such that the smallest items are on the top, can use additional temporary stack but cannot copy the elements into any other data structure
+func sortStack(unsorted *MyStack) *MyStack {
+	sortedStack := MyStack{}
+	for !unsorted.isEmpty() {
+		temp := unsorted.pop()
+		isPop := false
+		for !sortedStack.isEmpty() {
+			if sortedStack.peek() > temp {
+				sortedStack.push(temp)
+				isPop = true
+				break
+			}
+			unsorted.push(sortedStack.pop())
+		}
+		if !isPop {
+			sortedStack.push(temp)
+		}
+	}
+	return &sortedStack
+}
