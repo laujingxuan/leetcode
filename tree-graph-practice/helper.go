@@ -1,6 +1,13 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
+
+type intLinkNode struct {
+	data int
+	next *intLinkNode
+}
 
 type intNode struct {
 	data      int
@@ -104,7 +111,7 @@ func (q *MyQueue) isEmpty() bool {
 	return q.First == nil
 }
 
-//help to print binary search tree of intNode
+// help to print binary search tree of intNode
 func printIntNode(node *intNode) {
 	if node.leftNode != nil {
 		printIntNode(node.leftNode)
@@ -112,5 +119,13 @@ func printIntNode(node *intNode) {
 	fmt.Println(node.data)
 	if node.rightNode != nil {
 		printIntNode(node.rightNode)
+	}
+}
+
+func printIntLinkList(node *intLinkNode) {
+	currentNode := node
+	for currentNode != nil {
+		fmt.Println("Node: ", currentNode.data)
+		currentNode = currentNode.next
 	}
 }
