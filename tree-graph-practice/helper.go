@@ -2,6 +2,12 @@ package main
 
 import "fmt"
 
+type intNode struct {
+	data      int
+	leftNode  *intNode
+	rightNode *intNode
+}
+
 type graphNode struct {
 	name      string
 	children  []*graphNode
@@ -96,4 +102,15 @@ func (q *MyQueue) dequeue() *graphNode {
 
 func (q *MyQueue) isEmpty() bool {
 	return q.First == nil
+}
+
+//help to print binary search tree of intNode
+func printIntNode(node *intNode) {
+	if node.leftNode != nil {
+		printIntNode(node.leftNode)
+	}
+	fmt.Println(node.data)
+	if node.rightNode != nil {
+		printIntNode(node.rightNode)
+	}
 }
