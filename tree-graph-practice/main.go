@@ -141,4 +141,8 @@ func checkBST(node *intNode) (minValue, maxValue int) {
 	return leftMinValue, rightMaxValue
 }
 
+func successor(currentNode *intNode) *intNode {
+	return nil
+}
+
 //bidrectional search
