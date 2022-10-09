@@ -21,14 +21,14 @@ var (
 	seventhNode     = NewGraphNode("7", []*graphNode{})
 	eightNode       = NewGraphNode("8", []*graphNode{})
 	sortedIntArray  = []int{1, 2, 3, 4, 5, 6, 7, 8}
-	binaryNodeOne   = intNode{data: 1, leftNode: &binaryNodeTwo, rightNode: &binaryNodeThree}
-	binaryNodeTwo   = intNode{data: 2, leftNode: &binaryNodeFour, rightNode: &binaryNodeFive}
-	binaryNodeThree = intNode{data: 3}
+	binaryNodeOne   = intNode{data: 5, leftNode: &binaryNodeTwo, rightNode: &binaryNodeThree}
+	binaryNodeTwo   = intNode{data: 4, leftNode: &binaryNodeFour, rightNode: &binaryNodeFive}
+	binaryNodeThree = intNode{data: 7}
 	// binaryNodeFour  = intNode{data: 4}
-	binaryNodeFour  = intNode{data: 4, leftNode: &binaryNodeSix, rightNode: &binaryNodeSeven}
-	binaryNodeFive  = intNode{data: 5}
-	binaryNodeSix   = intNode{data: 6}
-	binaryNodeSeven = intNode{data: 7}
+	binaryNodeFour  = intNode{data: 2, leftNode: &binaryNodeSix, rightNode: &binaryNodeSeven}
+	binaryNodeFive  = intNode{data: 6}
+	binaryNodeSix   = intNode{data: 1}
+	binaryNodeSeven = intNode{data: 3}
 )
 
 func main() {
@@ -44,7 +44,8 @@ func main() {
 	// 	fmt.Println("Depth:", index)
 	// 	printIntLinkList(linkList)
 
-	fmt.Println("Is balance: ", checkBalance(&binaryNodeOne))
+	// fmt.Println("Is balance: ", checkBalance(&binaryNodeOne))
+	fmt.Println("Is binary search tree: ", validateBST(&binaryNodeOne))
 }
 
 // Given a sorted aray with unique integer elements, the function will create a binary search tree with minimal height
@@ -112,6 +113,32 @@ func isBalance(node *intNode, currentHeight int) int {
 		return leftHeight
 	}
 	return rightHeight
+}
+
+// Check if a binary tree is a binary search tree
+func validateBST(node *intNode) bool {
+	minValue, maxValue := checkBST(node)
+	return minValue != math.MinInt && maxValue != math.MaxInt
+}
+
+func checkBST(node *intNode) (minValue, maxValue int) {
+	if node.leftNode == nil && node.rightNode == nil {
+		return node.data, node.data
+	}
+	var leftMinValue, leftMaxValue, rightMaxValue, rightMinValue int
+	if node.leftNode != nil {
+		leftMinValue, leftMaxValue = checkBST(node.leftNode)
+		if leftMinValue == math.MinInt || leftMaxValue > node.data {
+			return math.MinInt, math.MinInt
+		}
+	}
+	if node.rightNode != nil {
+		rightMinValue, rightMaxValue = checkBST(node.rightNode)
+		if rightMinValue == math.MaxInt || rightMinValue <= node.data {
+			return math.MinInt, math.MinInt
+		}
+	}
+	return leftMinValue, rightMaxValue
 }
 
 //bidrectional search
