@@ -141,6 +141,8 @@ func checkBST(node *intNode) (minValue, maxValue int) {
 	return leftMinValue, rightMaxValue
 }
 
+// Function will return the "next" node (based on in order successor) of a given node in a binary search tree
+// Each node has a link to it's parent
 func successor(currentNode *intNode) *intNode {
 	return nil
 }
