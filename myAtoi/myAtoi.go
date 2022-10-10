@@ -10,7 +10,7 @@ import (
 //Check if the next character (if not already at the end of the string) is '-' or '+'
 //Read in next the characters until the next non-digit character or the end of the input is reached. The rest of the string is ignored.
 var (
-	intMap = map[string]int32{
+	intMap = map[string]int{
 		"0": 0,
 		"1": 1,
 		"2": 2,
@@ -24,18 +24,19 @@ var (
 	}
 )
 
-func myAtoi(s string) int32 {
+func myAtoi(s string) int {
 	trimmed := strings.TrimSpace(s)
 	if len(trimmed) == 0 {
 		return 0
 	}
-	var sign int32 = 1
+	sign := 1
 	if string(trimmed[0]) == "-" || string(trimmed[0]) == "+" {
 		if string(trimmed[0]) == "-" {
 			sign = -1
 		}
 		trimmed = trimmed[1:]
 	}
+
 	var stringBuilder strings.Builder
 	leadingZero := true
 	for _, char := range trimmed {
@@ -60,7 +61,7 @@ func myAtoi(s string) int32 {
 		return math.MinInt32
 	}
 	if len(digitString) == 10 {
-		var firstNineNumber int32 = 0
+		firstNineNumber := 0
 		lastNumber := intMap[string(digitString[len(digitString)-1])]
 		for x := 0; x < len(digitString)-1; x++ {
 			digit, _ := intMap[string(digitString[x])]
@@ -82,7 +83,7 @@ func myAtoi(s string) int32 {
 		}
 		return (firstNineNumber*10 + lastNumber) * sign
 	}
-	var total int32 = 0
+	total := 0
 	for _, char := range digitString {
 		digit, _ := intMap[string(char)]
 		total = total*10 + digit
