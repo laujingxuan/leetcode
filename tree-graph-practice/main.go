@@ -29,13 +29,6 @@ var (
 	binaryNodeFive  = intNode{data: 6}
 	binaryNodeSix   = intNode{data: 1}
 	binaryNodeSeven = intNode{data: 3}
-	// successorIntNodeOne   = succesorIntNode{data: 5, leftNode: &successorIntNodeTwo, rightNode: &successorIntNodeThree}
-	// successorIntNodeTwo   = succesorIntNode{data: 4, leftNode: &successorIntNodeFour, rightNode: &successorIntNodeFive, parent: &successorIntNodeOne}
-	// successorIntNodeThree = succesorIntNode{data: 7}
-	// successorIntNodeFour  = succesorIntNode{data: 2, leftNode: &successorIntNodeSix, rightNode: &successorIntNodeSeven}
-	// successorIntNodeFive  = succesorIntNode{data: 6}
-	// successorIntNodeSix   = succesorIntNode{data: 1}
-	// successorIntNodeSeven = succesorIntNode{data: 3}
 )
 
 func main() {
@@ -167,6 +160,13 @@ func successor(currentNode *succesorIntNode) *succesorIntNode {
 		targetNode = targetNode.parent
 	}
 	return targetNode.parent
+}
+
+// You are given a list of projects and a list of dependencies (which is a list of pairs of projects, where the second project is dependent on the first project). All of a project's dependencies must be built before the project is. Find a build order that will allow the projects to be built. If there is no valid build order, return an error
+// Eg: Inputs []string: a,b,c,d,e,f
+// Eg: Dependencies [][]string: {{a,b},{f,b},{b,d},{f,a},{d,c}}
+func buildOrder(projects []string, dependencies [][]string) {
+
 }
 
 //bidrectional search
