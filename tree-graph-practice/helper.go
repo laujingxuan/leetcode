@@ -15,6 +15,13 @@ type intNode struct {
 	rightNode *intNode
 }
 
+type succesorIntNode struct {
+	data      int
+	parent    *succesorIntNode
+	leftNode  *succesorIntNode
+	rightNode *succesorIntNode
+}
+
 type graphNode struct {
 	name      string
 	children  []*graphNode

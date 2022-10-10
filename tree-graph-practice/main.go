@@ -29,6 +29,13 @@ var (
 	binaryNodeFive  = intNode{data: 6}
 	binaryNodeSix   = intNode{data: 1}
 	binaryNodeSeven = intNode{data: 3}
+	// successorIntNodeOne   = succesorIntNode{data: 5, leftNode: &successorIntNodeTwo, rightNode: &successorIntNodeThree}
+	// successorIntNodeTwo   = succesorIntNode{data: 4, leftNode: &successorIntNodeFour, rightNode: &successorIntNodeFive, parent: &successorIntNodeOne}
+	// successorIntNodeThree = succesorIntNode{data: 7}
+	// successorIntNodeFour  = succesorIntNode{data: 2, leftNode: &successorIntNodeSix, rightNode: &successorIntNodeSeven}
+	// successorIntNodeFive  = succesorIntNode{data: 6}
+	// successorIntNodeSix   = succesorIntNode{data: 1}
+	// successorIntNodeSeven = succesorIntNode{data: 3}
 )
 
 func main() {
@@ -143,8 +150,23 @@ func checkBST(node *intNode) (minValue, maxValue int) {
 
 // Function will return the "next" node (based on in order successor) of a given node in a binary search tree
 // Each node has a link to it's parent
-func successor(currentNode *intNode) *intNode {
-	return nil
+func successor(currentNode *succesorIntNode) *succesorIntNode {
+	//if the node is a right node, the next node will be it's parent's parent (until the parent node has a non-current childright node)
+	//if the node is a left node, the next node will be the root node
+	//if the node is a root node, the next node will be the right node's leftest node
+	if currentNode.rightNode != nil {
+		//then find the leftest node
+		leftestNode := currentNode.rightNode
+		for leftestNode.leftNode != nil {
+			leftestNode = leftestNode.leftNode
+		}
+		return leftestNode
+	}
+	targetNode := currentNode
+	for targetNode.parent.rightNode == targetNode {
+		targetNode = targetNode.parent
+	}
+	return targetNode.parent
 }
 
 //bidrectional search
