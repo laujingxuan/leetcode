@@ -5,6 +5,9 @@
     },
     {
       "path": "maxArea"
+    },
+    {
+      "path": "threeSums"
     }
   ],
   "settings": {}
