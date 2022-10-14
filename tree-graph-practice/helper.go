@@ -136,3 +136,59 @@ func printIntLinkList(node *intLinkNode) {
 		currentNode = currentNode.next
 	}
 }
+
+type Project struct {
+	children     []*Project
+	mapProject   map[string]*Project
+	name         string
+	dependencies int
+}
+
+func initProject(name string) *Project {
+	p := Project{}
+	p.children = []*Project{}
+	p.mapProject = map[string]*Project{}
+	p.dependencies = 0
+	p.name = name
+	return &p
+}
+
+func (p *Project) addNeighbour(node *Project) {
+	if _, ok := p.mapProject[node.name]; !ok {
+		p.children = append(p.children, node)
+		p.mapProject[node.name] = node
+		node.incrementDependencies()
+	}
+}
+
+func (p *Project) incrementDependencies() {
+	p.dependencies++
+}
+
+func (p *Project) decrementDependencies() {
+	p.dependencies--
+}
+
+type Graph struct {
+	nodes      []*Project
+	projectMap map[string]*Project
+}
+
+func (g *Graph) getOrCreateNode(name string) *Project {
+	if _, ok := g.projectMap[name]; !ok {
+		newNode := initProject(name)
+		g.nodes = append(g.nodes, newNode)
+		g.projectMap[name] = newNode
+	}
+	return g.projectMap[name]
+}
+
+func (g *Graph) addEdge(startName, endName string) {
+	start := g.getOrCreateNode(startName)
+	end := g.getOrCreateNode(endName)
+	start.addNeighbour(end)
+}
+
+func (g *Graph) getNodes() []*Project {
+	return g.nodes
+}

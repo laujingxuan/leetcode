@@ -25,10 +25,12 @@ var (
 	binaryNodeTwo   = intNode{data: 4, leftNode: &binaryNodeFour, rightNode: &binaryNodeFive}
 	binaryNodeThree = intNode{data: 7}
 	// binaryNodeFour  = intNode{data: 4}
-	binaryNodeFour  = intNode{data: 2, leftNode: &binaryNodeSix, rightNode: &binaryNodeSeven}
-	binaryNodeFive  = intNode{data: 6}
-	binaryNodeSix   = intNode{data: 1}
-	binaryNodeSeven = intNode{data: 3}
+	binaryNodeFour      = intNode{data: 2, leftNode: &binaryNodeSix, rightNode: &binaryNodeSeven}
+	binaryNodeFive      = intNode{data: 6}
+	binaryNodeSix       = intNode{data: 1}
+	binaryNodeSeven     = intNode{data: 3}
+	projects            = []string{"a", "b", "c", "d", "e", "f"}
+	projectDependencies = [][]string{{"a", "b"}, {"f", "b"}, {"b", "d"}, {"f", "a"}, {"d", "c"}}
 )
 
 func main() {
@@ -45,7 +47,8 @@ func main() {
 	// 	printIntLinkList(linkList)
 
 	// fmt.Println("Is balance: ", checkBalance(&binaryNodeOne))
-	fmt.Println("Is binary search tree: ", validateBST(&binaryNodeOne))
+	// fmt.Println("Is binary search tree: ", validateBST(&binaryNodeOne))
+	printBuildOrder(buildOrder(projects, projectDependencies))
 }
 
 // Given a sorted aray with unique integer elements, the function will create a binary search tree with minimal height
@@ -162,11 +165,65 @@ func successor(currentNode *succesorIntNode) *succesorIntNode {
 	return targetNode.parent
 }
 
+func addNonDependent(order, projects []*Project, offset int) int {
+	for _, project := range projects {
+		if project.dependencies == 0 {
+			order[offset] = project
+			offset++
+		}
+	}
+	return offset
+}
+
+func printBuildOrder(projects []*Project) {
+	for _, project := range projects {
+		fmt.Println("Project: ", project.name)
+	}
+}
+
 // You are given a list of projects and a list of dependencies (which is a list of pairs of projects, where the second project is dependent on the first project). All of a project's dependencies must be built before the project is. Find a build order that will allow the projects to be built. If there is no valid build order, return an error
 // Eg: Inputs []string: a,b,c,d,e,f
 // Eg: Dependencies [][]string: {{a,b},{f,b},{b,d},{f,a},{d,c}}
-func buildOrder(projects []string, dependencies [][]string) {
+func buildOrder(projects []string, dependencies [][]string) []*Project {
+	graph := buildGraph(projects, dependencies)
+	return orderProjects(graph.getNodes())
+}
 
+func buildGraph(projects []string, dependencies [][]string) Graph {
+	graph := Graph{nodes: []*Project{}, projectMap: map[string]*Project{}}
+	for _, project := range projects {
+		graph.getOrCreateNode(project)
+	}
+
+	for _, dependency := range dependencies {
+		first := dependency[0]
+		second := dependency[1]
+		graph.addEdge(first, second)
+	}
+
+	return graph
+}
+
+func orderProjects(projects []*Project) []*Project {
+	order := make([]*Project, len(projects))
+	endOfList := addNonDependent(order, projects, 0)
+
+	toBeProcessed := 0
+	for toBeProcessed < len(order) {
+		current := order[toBeProcessed]
+
+		if current == nil {
+			return nil
+		}
+
+		for _, child := range current.children {
+			child.decrementDependencies()
+		}
+
+		endOfList = addNonDependent(order, current.children, endOfList)
+		toBeProcessed++
+	}
+	return order
 }
 
 //bidrectional search
