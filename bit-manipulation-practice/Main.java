@@ -73,6 +73,11 @@ public class Main {
     return maxLength;
   }
 
+  //given a positive integer, print the next smallest and the next largest number that have the same number of 1 bits in their binary representation
+  static int[] nextNumber(int num){
+
+  }
+
   public static void main(String[] args) {
     // String binaryString = Integer.toBinaryString(updateBits(1024,19,2,6));
     // String binaryString = binaryToString(0.75);
