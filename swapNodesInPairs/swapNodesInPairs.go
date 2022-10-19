@@ -13,7 +13,7 @@ func swapPairs(head *ListNode) *ListNode {
 		return head
 	}
 
-	//use pointers
+	//use 3 pointers
 	previousNode := &ListNode{}
 	firstNode := head
 	secondNode := head.Next
