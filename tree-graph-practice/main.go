@@ -129,6 +129,8 @@ func checkBST(node *intNode) (minValue, maxValue int) {
 		return node.data, node.data
 	}
 	var leftMinValue, leftMaxValue, rightMaxValue, rightMinValue int
+	leftMinValue = node.data
+	rightMaxValue = node.data
 	if node.leftNode != nil {
 		leftMinValue, leftMaxValue = checkBST(node.leftNode)
 		if leftMinValue == math.MinInt || leftMaxValue > node.data {
