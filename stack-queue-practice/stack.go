@@ -170,3 +170,40 @@ func sortStack(unsorted *MyStack) *MyStack {
 	}
 	return &sortedStack
 }
+
+// <----------------------------------- Implementing queue with stack  --------------------------------------->
+type MyStack1 struct {
+	queue []int
+}
+
+func Constructor() MyStack1 {
+	return MyStack1{[]int{}}
+}
+
+func (this *MyStack1) Push(x int) {
+	this.queue = append(this.queue, x)
+	for i := 0; i < len(this.queue)-1; i++ {
+		this.queue = append(this.queue, this.queue[0])
+		this.queue = this.queue[1:]
+	}
+}
+
+func (this *MyStack1) Pop() int {
+	if len(this.queue) == 0 {
+		return -1
+	}
+	lastNumber := this.queue[0]
+	this.queue = this.queue[1:]
+	return lastNumber
+}
+
+func (this *MyStack1) Top() int {
+	if len(this.queue) == 0 {
+		return -1
+	}
+	return this.queue[0]
+}
+
+func (this *MyStack1) Empty() bool {
+	return len(this.queue) == 0
+}
