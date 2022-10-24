@@ -3,6 +3,7 @@ package leetcode;
 import java.util.Arrays;
 
 public class removeArrayDuplicates {
+
     public static void main(String[] args) {
         int[] test = {1,1,2};
         System.out.println(removeArrayDuplicates(test));
