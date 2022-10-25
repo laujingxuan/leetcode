@@ -48,7 +48,11 @@ func main() {
 
 	// fmt.Println("Is balance: ", checkBalance(&binaryNodeOne))
 	// fmt.Println("Is binary search tree: ", validateBST(&binaryNodeOne))
-	printBuildOrder(buildOrder(projects, projectDependencies))
+	// printBuildOrder(buildOrder(projects, projectDependencies))
+	str := "test"
+	for _, ch := range str {
+		fmt.Printf("%c\n", ch)
+	}
 }
 
 // Given a sorted aray with unique integer elements, the function will create a binary search tree with minimal height
@@ -228,7 +232,7 @@ func orderProjects(projects []*Project) []*Project {
 	return order
 }
 
-//----------------------------------------------------------------------is a binary node symmetry
+// ----------------------------------------------------------------------is a binary node symmetry
 type TreeNode struct {
 	Val   int
 	Left  *TreeNode
@@ -256,5 +260,82 @@ func isSame(left, right *TreeNode) bool {
 }
 
 //----------------------------------------------------------------------is a binary node symmetry
+
+// design an algorithm and write code to find the first common ancestor of two nodes in a binary tree. Avoid storing additional nodes in a data structure. Note: this is not necessarily a binary search tree
+func commonAncestorWithLinkToParent(firstNode, secondNode *succesorIntNode) *succesorIntNode {
+	firstDepth := checkDepth(firstNode)
+	secondDepth := checkDepth(secondNode)
+	//progress both node to the same depth
+	if firstDepth > secondDepth {
+		firstNode = progressToSpecificDepth(firstNode, firstDepth-secondDepth)
+	} else if secondDepth > firstDepth {
+		secondNode = progressToSpecificDepth(secondNode, secondDepth-firstDepth)
+	}
+	for firstNode != secondNode && firstNode != nil && secondNode != nil {
+		firstNode = firstNode.parent
+		secondNode = secondNode.parent
+	}
+	if firstNode == nil || secondNode == nil {
+		return nil
+	}
+	return firstNode
+}
+
+func progressToSpecificDepth(node *succesorIntNode, differenceInDepth int) *succesorIntNode {
+	for differenceInDepth > 0 && node != nil {
+		node = node.parent
+		differenceInDepth--
+	}
+	return node
+}
+
+func checkDepth(node *succesorIntNode) int {
+	depth := 0
+	currentNode := node
+	if currentNode != nil {
+		depth++
+		currentNode = currentNode.parent
+	}
+	return depth
+}
+
+func commonAncestorWithoutLinkToParent(root, firstNode, secondNode *intNode) *intNode {
+	if !covers(root, firstNode) || !covers(root, secondNode) {
+		return nil
+	}
+
+	return ancestorHelper(root, firstNode, secondNode)
+}
+
+func ancestorHelper(root, firstNode, secondNode *intNode) *intNode {
+	if root == nil || root == firstNode || root == secondNode {
+		return root
+	}
+
+	isFirstLeft := covers(root.leftNode, firstNode)
+	isSecondLeft := covers(root.leftNode, secondNode)
+	if isFirstLeft != isSecondLeft {
+		return root
+	}
+	if isFirstLeft {
+		root = root.leftNode
+	} else {
+		root = root.rightNode
+	}
+	return ancestorHelper(root, firstNode, secondNode)
+}
+
+func covers(root, node *intNode) bool {
+	if root == nil {
+		return false
+	}
+	if root == node {
+		return true
+	}
+	leftCover := covers(root.leftNode, node)
+	rightCover := covers(root.rightNode, node)
+
+	return leftCover || rightCover
+}
 
 //bidrectional search

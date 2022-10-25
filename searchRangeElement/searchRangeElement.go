@@ -11,10 +11,10 @@ func searchRange(nums []int, target int) []int {
 	for high >= low {
 		midIndex := (low + high) / 2
 		midValue := nums[midIndex]
-		if midValue < target {
+		if midValue > target {
 			high = midIndex - 1
 		}
-		if midValue > target {
+		if midValue < target {
 			low = midIndex + 1
 		}
 		if midValue == target {
