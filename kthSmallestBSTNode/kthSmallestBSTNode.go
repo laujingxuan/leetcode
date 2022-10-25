@@ -10,18 +10,27 @@ type TreeNode struct {
 
 //Question 230
 func kthSmallest(root *TreeNode, k int) int {
-	foundInt := getNodeValues(root, []int{})
+	foundInt := getNodeValues(root, []int{}, k)
 	return foundInt[k-1]
 }
 
-func getNodeValues(root *TreeNode, foundInt []int) []int {
+func getNodeValues(root *TreeNode, foundInt []int, k int) []int {
 	if root == nil {
 		return foundInt
 	}
 
-	foundInt = getNodeValues(root.Left, foundInt)
+	foundInt = getNodeValues(root.Left, foundInt, k)
+	if len(foundInt) == k {
+		return foundInt
+	}
 	foundInt = append(foundInt, root.Val)
-	foundInt = getNodeValues(root.Right, foundInt)
+	if len(foundInt) == k {
+		return foundInt
+	}
+	foundInt = getNodeValues(root.Right, foundInt, k)
+	if len(foundInt) == k {
+		return foundInt
+	}
 
 	return foundInt
 }
