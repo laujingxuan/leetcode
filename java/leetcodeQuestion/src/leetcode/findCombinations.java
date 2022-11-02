@@ -23,12 +23,10 @@ class findCombinations {
             return;
         }
 
-        int copiedOptions = n;
-        for (int i=0; i<n-addedLargest; i++){
+        for (int i=addedLargest+1; i<=n; i++){
             List<Integer> newList = new ArrayList<>(current);
-            newList.add(copiedOptions);
-            findCombination(found, newList, copiedOptions, n, k-1);
-            copiedOptions--;
+            newList.add(i);
+            findCombination(found, newList, i, n, k-1);
         }
     }
 }
