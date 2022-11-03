@@ -48,6 +48,5 @@ func moveZeroesAlternative(nums []int) {
 func main() {
 	input := []int{1, 0}
 	moveZeroes(input)
-	moveZeroesAlternative(input)
 	fmt.Println(input)
 }
