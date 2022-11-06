@@ -259,8 +259,7 @@ func isSame(left, right *TreeNode) bool {
 	return isSame(left.Right, right.Left) && isSame(left.Left, right.Right)
 }
 
-//----------------------------------------------------------------------is a binary node symmetry
-
+// ----------------------------------------------------------------------first common ancestor-----------------------------------------------------
 // design an algorithm and write code to find the first common ancestor of two nodes in a binary tree. Avoid storing additional nodes in a data structure. Note: this is not necessarily a binary search tree
 func commonAncestorWithLinkToParent(firstNode, secondNode *succesorIntNode) *succesorIntNode {
 	firstDepth := checkDepth(firstNode)
@@ -337,5 +336,3 @@ func covers(root, node *intNode) bool {
 
 	return leftCover || rightCover
 }
-
-//bidrectional search

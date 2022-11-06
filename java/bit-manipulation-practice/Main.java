@@ -138,13 +138,48 @@ public class Main {
     return num;
   }
 
+  //--------------------------------------------------------------- Conversion -------------------------------------
+  // determine the number of bits you would need to flop to convert integer A to integer B
+  public static int conversion(int firstInteger, int secondInteger){
+    int largerInt = firstInteger;
+    int smallerInt = secondInteger;
+    if (secondInteger > largerInt){
+      largerInt = secondInteger;
+      smallerInt = firstInteger;
+    }
+    int numberOfFlips = 0;
+    while (largerInt != 0){
+      if (largerInt%2 != smallerInt%2){
+        numberOfFlips ++;
+      }
+      largerInt >>>= 1;
+      smallerInt >>>= 1;
+    }
+
+    return numberOfFlips;
+  }
+
+  public static int conversionAnswer(int firstInteger, int secondInteger){
+    int numberOfFlips = 0;
+    for (int i = firstInteger^secondInteger; i != 0 ; i=i&(i-1)){
+      numberOfFlips ++;
+    }
+    return numberOfFlips;
+  }
+
+  //--------------------------------------------------------------- Conversion -------------------------------------
+
   public static void main(String[] args) {
     // String binaryString = Integer.toBinaryString(updateBits(1024,19,2,6));
-    // String binaryString = binaryToString(0.75);
-    // System.out.println(binaryString);
+//     String binaryString = binaryToString(0.75);
+//     System.out.println(binaryString);
     // System.out.println(flipBitToWin(1775));
-    int[] answer = nextNumber(359);
-    System.out.println(answer[0]);
-    System.out.println(answer[1]);
+//    int[] answer = nextNumber(359);
+//    System.out.println(answer[0]);
+//    System.out.println(answer[1]);
+//    System.out.println(~15);
+//    System.out.println( Integer.toBinaryString(-16));
+    System.out.println(conversion(29,15));
+    System.out.println(conversionAnswer(29,15));
   }
 }
