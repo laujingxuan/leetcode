@@ -167,7 +167,15 @@ public class Main {
     return numberOfFlips;
   }
 
-  //--------------------------------------------------------------- Conversion -------------------------------------
+  //--------------------------------------------------------------- Pairwise swap -------------------------------------
+  //swap odd and even bits in an integer with as few instructions as possible
+  public static int pairWiseSwap(int input){
+    //move the even number to odd position with a 1010 mask
+    int movedEvenNumber = (input&0xaaaaaaaa) >>> 1;
+    //move the odd number to even position with a 0101 mask
+    int movedOddNumber = (input&0x55555555) <<1;
+    return movedEvenNumber | movedOddNumber;
+  }
 
   public static void main(String[] args) {
     // String binaryString = Integer.toBinaryString(updateBits(1024,19,2,6));
@@ -179,7 +187,9 @@ public class Main {
 //    System.out.println(answer[1]);
 //    System.out.println(~15);
 //    System.out.println( Integer.toBinaryString(-16));
-    System.out.println(conversion(29,15));
-    System.out.println(conversionAnswer(29,15));
+//    System.out.println(conversion(29,15));
+//    System.out.println(conversionAnswer(29,15));
+    System.out.println(Integer.toBinaryString(309));
+    System.out.println(Integer.toBinaryString(pairWiseSwap(309)));
   }
 }
