@@ -336,3 +336,33 @@ func covers(root, node *intNode) bool {
 
 	return leftCover || rightCover
 }
+
+//Time complexity only O(N) since only navigate through each nodes once at max
+func betterCommonAncestorWithoutLinkToParent(root, firstNode, secondNode *intNode) *intNode {
+	if root == nil || root == firstNode || root == secondNode {
+		return root
+	}
+	leftCheck := betterCommonAncestorWithoutLinkToParent(root.leftNode, firstNode, secondNode)
+	rightCheck := betterCommonAncestorWithoutLinkToParent(root.rightNode, firstNode, secondNode)
+	if leftCheck != nil && rightCheck != nil {
+		return root
+	}
+	if leftCheck == nil {
+		return rightCheck
+	}
+
+	return leftCheck
+}
+
+func optCommonAncestorForBinarySearchTree(root, firstNode, secondNode *intNode) *intNode {
+	if root == nil || root == firstNode || root == secondNode {
+		return root
+	}
+	if (root.data-firstNode.data)*(root.data-secondNode.data) < 0 {
+		return root
+	}
+	if root.data-firstNode.data < 0 {
+		return optCommonAncestorForBinarySearchTree(root.rightNode, firstNode, secondNode)
+	}
+	return optCommonAncestorForBinarySearchTree(root.leftNode, firstNode, secondNode)
+}

@@ -40,8 +40,8 @@ public class BinaryTreeFromPreAndInTra {
             leftSideValues.add(inorder[i]);
         }
         int numberOfLeft = leftSideValues.size();
-        root.left = buildTree(Arrays.copyOfRange(preorder, 0, numberOfLeft),
-                Arrays.copyOfRange(inorder, 1, 1 + numberOfLeft));
+        root.left = buildTree(Arrays.copyOfRange(preorder, 1, numberOfLeft + 1),
+                Arrays.copyOfRange(inorder, 0, numberOfLeft));
         root.right = buildTree(Arrays.copyOfRange(preorder, numberOfLeft + 1, preorder.length),
                 Arrays.copyOfRange(inorder, 1 + numberOfLeft, inorder.length));
         return root;
