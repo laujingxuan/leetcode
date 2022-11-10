@@ -49,4 +49,40 @@ public class FindAnagramsSlidWind {
         }
         return indexes;
     }
+
+    public List<Integer> findAnagramsSlidWindow(String s, String p) {
+        if (p.length() > s.length()) {
+            return new ArrayList<Integer>();
+        }
+        HashMap<Character, Integer> pRecord = new HashMap<>();
+        for (int i = 0; i < p.length(); i++) {
+            if (pRecord.containsKey(p.charAt(i))) {
+                pRecord.put(p.charAt(i), (pRecord.get(p.charAt(i)) + 1));
+            } else {
+                pRecord.put(p.charAt(i), 1);
+            }
+            if (pRecord.containsKey(s.charAt(i))) {
+                int newCount = (Integer) pRecord.get(s.charAt(i)) - 1;
+                if (newCount == 0) {
+                    pRecord.remove(s.charAt(i));
+                } else {
+                    pRecord.put(s.charAt(i), newCount);
+                }
+            } else {
+                pRecord.put(s.charAt(i), -1);
+            }
+        }
+        List<Integer> indexes = new ArrayList<>();
+        if (pRecord.size() == 0) {
+            indexes.add(0);
+        }
+        for (int i = 1; i < s.length() - p.length() + 1; i++) {
+            if (pRecord.get(s.charAt(i - 1)) != null) {
+
+            }
+            if (pRecord.get(s.charAt(i + p.length() - 1)) != null) {
+
+            }
+        }
+    }
 }
