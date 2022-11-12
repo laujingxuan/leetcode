@@ -5,5 +5,6 @@ public class TestConcept {
         String test1 = new String("test");
         String test2 = new String("test");
         System.out.println(test1==test2);
+        System.out.println(test1.substring(0,4));
     }
 }
