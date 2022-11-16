@@ -30,7 +30,8 @@ public class SearchInRotatedArray {
             if (midValue == target) {
                 return midIndex;
             } else {
-                if (midValue < target && lastValue < target || midValue > target && target >= firstValue) {
+                if (midValue < target && lastValue < target && firstValue > target
+                        || midValue > target && target >= firstValue) {
                     lastIndex = midIndex - 1;
                 } else {
                     firstIndex = midIndex + 1;

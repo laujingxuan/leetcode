@@ -21,7 +21,7 @@ public class mergeSort {
         int mid = (firstIndex + lastIndex) / 2;
         int[] leftSorted = mergeSort(nums, firstIndex, mid);
         int[] rightSorted = mergeSort(nums, mid, lastIndex);
-        int[] finalSorted = new int[nums.length];
+        int[] finalSorted = new int[leftSorted.length + rightSorted.length];
         int a = 0;
         int b = 0;
         int c = 0;
