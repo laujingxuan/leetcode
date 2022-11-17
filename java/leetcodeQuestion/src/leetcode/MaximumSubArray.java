@@ -7,37 +7,44 @@ public class MaximumSubArray {
     }
 
     public static int maxSubArray(int[] nums) {
-        int largestNegativeNum = Integer.MIN_VALUE;
-        int secondPointer = 0;
+        if (nums.length == 0){
+            return -1;
+        }
+        int pointer = 0;
         int negativeSum = 0;
         int positiveSum = 0;
-        int maxSum = 0;
-        boolean isAllNegative = true;
-        while (secondPointer < nums.length) {
+        int maxSum = nums[0];
+        while (pointer < nums.length) {
             System.out.println("positiveSum:" + positiveSum);
             System.out.println("negativeSum:" + negativeSum);
             System.out.println("maxSum:" + maxSum);
-            if (nums[secondPointer] >= 0) {
-                isAllNegative = false;
-                positiveSum += nums[secondPointer];
-                if (positiveSum + negativeSum > maxSum) {
-                    maxSum = positiveSum + negativeSum;
-                }
+            if (nums[pointer] >= 0) {
+                positiveSum += nums[pointer];
             } else {
-                if (nums[secondPointer] > largestNegativeNum) {
-                    largestNegativeNum = nums[secondPointer];
-                }
-                negativeSum += nums[secondPointer];
-                if (positiveSum + negativeSum < 0) {
-                    negativeSum = 0;
-                    positiveSum = 0;
-                }
+                negativeSum += nums[pointer];
             }
-            secondPointer++;
-        }
-        if (isAllNegative) {
-            return largestNegativeNum;
+            maxSum = Math.max(positiveSum + negativeSum, maxSum);
+            if (positiveSum + negativeSum < 0) {
+                negativeSum = 0;
+                positiveSum = 0;
+            }
+            pointer++;
         }
         return maxSum;
+    }
+
+    //Same idea but recursion way of doing
+    public static int maxSubArrayRecursion(int[] nums) {
+        if (nums.length == 0){
+            return -1;
+        }
+        int[] tracking = new int[nums.length];
+        tracking[0] = nums[0];
+        int currentMax = nums[0];
+        for (int i = 1; i < nums.length; i ++){
+            tracking[i] = Math.max(tracking[i-1]+nums[i], nums[i]);
+            currentMax = Math.max(currentMax, tracking[i]);
+        }
+        return currentMax;
     }
 }
