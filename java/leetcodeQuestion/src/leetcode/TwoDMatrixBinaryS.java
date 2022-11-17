@@ -34,6 +34,7 @@ public class TwoDMatrixBinaryS {
         int m = matrix[0].length;
         int l = 0, r = m * n - 1;
         while (l != r) {
+            // basically just divide by 2
             int mid = (l + r - 1) >> 1;
             if (matrix[mid / m][mid % m] < target)
                 l = mid + 1;
