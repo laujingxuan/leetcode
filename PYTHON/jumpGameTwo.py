@@ -35,6 +35,7 @@ def jumpAlternate(nums):
         tracking[i] = minTrack
     return tracking[0]
 
+#time complexity of O(N)
 def jumpBest(nums):
     if len(nums) <= 1: return 0
     left = 0
