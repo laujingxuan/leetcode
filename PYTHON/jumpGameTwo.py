@@ -27,7 +27,7 @@ def jumpAlternate(nums):
     for i in range(len(nums)-2, -1, -1):
         minTrack = -1
         for j in range(1, nums[i] + 1):
-            if tracking[i + j] >= 0:
+            if i+j < len(nums) and tracking[i + j] >= 0:
                 if minTrack == -1:
                     minTrack = tracking[i + j] + 1
                 elif tracking[i+j] != -1:
@@ -35,7 +35,22 @@ def jumpAlternate(nums):
         tracking[i] = minTrack
     return tracking[0]
 
+def jumpBest(nums):
+    if len(nums) <= 1: return 0
+    left = 0
+    right = nums[0]
+    stepNo = 1
+    while right < len(nums)-1:
+        stepNo+=1
+        furthestRight = 0
+        for i in range(left + 1, right+1):
+            furthestRight = max(furthestRight, nums[i] + i)
+        left = right
+        right = furthestRight
+    return stepNo
+
 if __name__ == "__main__":
     # print(jump([2,3,0,1,4]))
     # print(jump([2,3,1,1,4]))
     print(jumpAlternate([2,3,1,1,4]))
+    print(jumpBest([2,3,1,1,4]))
