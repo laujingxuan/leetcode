@@ -49,14 +49,11 @@ class Alternate:
         minsNeeded = 0
 
         while len(queue) > 0:
-            isAdded = False
+            minsNeeded += 1
             for i in range(len(queue)):
                 current = queue.pop(0)
                 if grid[current[0]][current[1]] == 1:
                     grid[current[0]][current[1]] = 2
-                    if not isAdded:
-                        minsNeeded += 1
-                        isAdded= True
                 for z in range(len(listArray)):
                         if current[0] + listArray[z][0] >= 0 and current[0] + listArray[z][0] < len(grid) and current[1] + listArray[z][1] >= 0 and current[1] + listArray[z][1] < len(grid[0]) and grid[current[0] + listArray[z][0]][current[1] + listArray[z][1]] == 1:
                             queue.append([current[0] + listArray[z][0], current[1] + listArray[z][1]])
@@ -71,4 +68,5 @@ if __name__ == "__main__":
     test1 = Alternate()
     print(test.orangesRotting([[2,1,1],[1,1,0],[0,1,1]]))
     print(test1.orangesRottinAlternateMoreDirty([[2,1,1],[1,1,0],[0,1,1]]))
-    # print(test.orangesRotting([[1],[2]]))
+    print(test.orangesRotting([[1],[2]]))
+    print(test1.orangesRottinAlternateMoreDirty([[1],[2]]))
