@@ -6,7 +6,7 @@
 #         self.right = right
 class Solution:
     #BFS method
-    def rightSideView(self, root: Optional[TreeNode]) -> List[int]:
+    def rightSideView(self, root):
         if root == None:
             return []
         queue = []
@@ -27,7 +27,7 @@ class Solution:
         return output
 
     #DFS method
-    def rightSideView(self, root: Optional[TreeNode]) -> List[int]:
+    def rightSideView(self, root):
         output = []
         self.rightSideViewHelper(root, output, 0)
         return output
