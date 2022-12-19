@@ -17,5 +17,6 @@ class Solution:
         return
 
 if __name__ == "__main__":
-    test = Solution()
-    print(test.permute([1,2,3]))
+    # test = Solution()
+    # print(test.permute([1,2,3]))
+    print(1<<2)
