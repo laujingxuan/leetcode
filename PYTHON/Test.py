@@ -19,4 +19,5 @@ class Solution:
 if __name__ == "__main__":
     # test = Solution()
     # print(test.permute([1,2,3]))
-    print(3<<2)
+    for i in range(2,3):
+        print(i)
