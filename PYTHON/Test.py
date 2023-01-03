@@ -38,11 +38,15 @@ class Solution:
 
 
 if __name__ == "__main__":
-    test = Solution()
-    input = [3,9,5,10,6,7,7]
+    # test = Solution()
+    # input = [3,9,5,10,6,7,7]
     # test.quickSort(input, 0, len(input) - 1)
-    test.heapSort(input)
-    print(input)
+    # test.heapSort(input)
+    # print(input)
 
     # for i in range(2,3):
     #     print(i)
+    test = [1]
+    print(test)
+    del test[-1]
+    print(test)
