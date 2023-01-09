@@ -50,6 +50,21 @@ def jumpBest(nums):
         right = furthestRight
     return stepNo
 
+def jumpAlternateBest(nums):
+    maxReachable = 0
+    trackIndex = 0
+    stepsNeeded = 0
+    preReachable = 0
+    while trackIndex < len(nums) - 1:
+        maxReachable = max(maxReachable, trackIndex + nums[trackIndex])
+        if trackIndex == preReachable:
+            stepsNeeded += 1
+            if maxReachable >= len(nums)-1:
+                return stepsNeeded
+            preReachable = maxReachable
+        trackIndex += 1
+    return stepsNeeded
+
 if __name__ == "__main__":
     # print(jump([2,3,0,1,4]))
     # print(jump([2,3,1,1,4]))
