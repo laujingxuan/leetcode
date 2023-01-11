@@ -61,12 +61,16 @@ class Solution:
 
 
 if __name__ == "__main__":
-    test = Solution()
-    input = [3,9,5,10,6,7,7]
-    # test.quickSort(input, 0, len(input) - 1)
-    test.heapSort(input)
-    print(input)
-
+    # test = Solution()
+    # input = [3,9,5,10,6,7,7]
+    # # test.quickSort(input, 0, len(input) - 1)
+    # test.heapSort(input)
+    # print(input)
+    test = [[0] * 3 for i in range(3)]
+    piles = [5,3,4,5]
+    memo = [[[-1 for i in range(len(piles))] for j in range(len(piles))]for z in range(2)]
+    print(test)
+    print(memo)
     # for i in range(2,3):
     #     print(i)
     # test = [1]
