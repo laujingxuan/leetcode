@@ -66,11 +66,15 @@ if __name__ == "__main__":
     # # test.quickSort(input, 0, len(input) - 1)
     # test.heapSort(input)
     # print(input)
-    test = [[0] * 3 for i in range(3)]
-    piles = [5,3,4,5]
-    memo = [[[-1 for i in range(len(piles))] for j in range(len(piles))]for z in range(2)]
-    print(test)
-    print(memo)
+    # test = [[0] * 3 for i in range(3)]
+    # piles = [5,3,4,5]
+    # memo = [[[-1 for i in range(len(piles))] for j in range(len(piles))]for z in range(2)]
+    # print(test)
+    # print(memo)
+    test1 = [1,2]
+    test2 = [3,4]
+    test1 += test2
+    print(test1)
     # for i in range(2,3):
     #     print(i)
     # test = [1]
