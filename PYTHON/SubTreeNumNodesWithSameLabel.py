@@ -12,19 +12,17 @@ class Solution:
             edgesMap[edge[0]] = nodeList1
             edgesMap[edge[1]] = nodeList2
         output = [0]*n
-        hasVisited = set()
-        self.countSubDFS(edgesMap, output, labels, hasVisited, 0)
+        self.countSubDFS(edgesMap, output, labels, -1, 0)
         return output
 
-    def countSubDFS(self, edgesMap, output, labels, hasVisited, rootNode):
+    def countSubDFS(self, edgesMap, output, labels, parent, currentNode):
         cnt = Counter()
-        if rootNode not in hasVisited:
-            cnt[labels[rootNode]] += 1
-            hasVisited.add(rootNode)
-            subNodes = edgesMap[rootNode]
-            for node in subNodes:
-                cnt += self.countSubDFS(edgesMap, output, labels, hasVisited, node)
-            output[rootNode] = cnt[labels[rootNode]]
+        cnt[labels[currentNode]] += 1
+        subNodes = edgesMap[currentNode]
+        for node in subNodes:
+            if node != parent:
+                cnt += self.countSubDFS(edgesMap, output, labels, currentNode, node)
+        output[currentNode] = cnt[labels[currentNode]]
         return cnt
 
     def countSubDFSWithoutCounter(self, edgesMap, output, labels, hasVisited, rootNode):
