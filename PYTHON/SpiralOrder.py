@@ -1,34 +1,24 @@
 class Solution:
     def spiralOrder(self, matrix):
-        output = []
-        output.append(matrix[0][0])
         hasVisited = set()
-        hasVisited.add(str(0) + ":" + str(0))
-        directions = [[0, 1], [1, 0], [0, -1], [-1, 0]]
-        currentDirectionIndex = 0
-        row = 0
-        column = 0
-        while True:
-            currentDirection = directions[currentDirectionIndex]
-            row, column = self.spiralOrderHelper(matrix, hasVisited, row + currentDirection[0], column + currentDirection[1], output, currentDirection)
-            if len(hasVisited) == len(matrix)*len(matrix[0]):
-                break
-            if currentDirectionIndex == 3:
-                currentDirectionIndex = 0
-            else:
-                currentDirectionIndex += 1
+        output = []
+        checkList = [[0, 1], [1, 0], [0, -1], [-1, 0]]
+        self.spiralOrderHelper(matrix, hasVisited, 0, 0, output, checkList, 0)
         return output
 
-    def spiralOrderHelper(self, matrix, hasVisited, row, column, output, currentDirection):
-        while row >= 0 and column >= 0 and row < len(matrix) and column < len(matrix[0]):
-            key = str(row) + ":" + str(column)
-            if key in hasVisited:
-                break
-            hasVisited.add(key)
-            output.append(matrix[row][column])
-            row = row + currentDirection[0]
-            column = column + currentDirection[1]
-        return row - currentDirection[0], column - currentDirection[1]
+
+    def spiralOrderHelper(self, matrix, hasVisited, row, column, output, checkList, checkListStartInd):
+        key = str(row) + ":" + str(column)
+        if row < 0 or column < 0 or row >= len(matrix) or column >= len(matrix[0]) or key in hasVisited:
+            return
+        output.append(matrix[row][column])
+        hasVisited.add(key)
+        for i in range(checkListStartInd, len(checkList)):
+            self.spiralOrderHelper(matrix, hasVisited, row+checkList[i][0], column+checkList[i][1], output, checkList, i)
+
+        for i in range(0,checkListStartInd):
+            self.spiralOrderHelper(matrix, hasVisited, row+checkList[i][0], column+checkList[i][1], output, checkList, i)
+        return
 
     def spiralOrderAlternateSolution(self, matrix):
         res = []
