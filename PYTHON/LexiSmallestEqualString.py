@@ -1,4 +1,30 @@
 class Solution:
+
+    def smallestEquivalentString(self, s1: str, s2: str, baseStr: str) -> str:
+        UF = {}
+        for i in range(len(s1)):
+            self.union(s1[i], s2[i], UF)
+        output = ""
+        for i in range(len(baseStr)):
+            output += self.find(baseStr[i], UF)
+        return output
+
+    def find(self, x, UF):
+        if x not in UF:
+            UF[x] = x
+        if UF[x] != x:
+            return self.find(UF[x], UF)
+        return UF[x]
+    
+    def union(self, x, y, UF):
+        rootX = self.find(x, UF)
+        rootY = self.find(y, UF)
+        if rootX > rootY:
+            UF[rootX] = rootY
+        else:
+            UF[rootY] = rootX
+        return
+
     def smallestEquivalentStringNotSoIdeal(self, s1: str, s2: str, baseStr: str) -> str:
         trackMap = {}
         for i in range(len(s1)):
