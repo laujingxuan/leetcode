@@ -1,3 +1,6 @@
+import math
+
+
 class Solution:
     def quickSort(self, input, low, high):
         if len(input) == 0 or high - low <= 0:
@@ -71,14 +74,8 @@ if __name__ == "__main__":
     # memo = [[[-1 for i in range(len(piles))] for j in range(len(piles))]for z in range(2)]
     # print(test)
     # print(memo)
-<<<<<<< HEAD
-    test1 = [1,2]
-    test2 = [3,4]
-    test1 += test2
-    print(-50%8)
-=======
-    print(int(-0.7))
->>>>>>> 08846efe3f1ba91aa0d6abc154eb5a9dc4ce4914
+    print(type(math.inf))
+
     # for i in range(2,3):
     #     print(i)
     # test = [1]
