@@ -24,3 +24,15 @@ class Solution:
             else:
                 checkRemainder[remainder] = i
         return False
+
+    #FInd the maximum subarray
+    def findMaximumSubArray(self, nums):
+        maxOverall = nums[0]
+        maxSoFar = 0
+        for i in range(len(nums)):
+            maxSoFar += nums[i]
+            if maxSoFar > maxOverall:
+                maxOverall = maxSoFar
+            if maxSoFar < 0:
+                maxSoFar = 0
+        return maxOverall
