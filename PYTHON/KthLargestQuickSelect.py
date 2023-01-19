@@ -6,7 +6,9 @@ import random
 
 
 class Solution:
-    #time complexity O(NlogN) since we sort the whole array
+    #time complexity O(N) on average after randomization. Worst case O(N^2)
+    #On average, each partition operation splits the remaining input into two equal parts and we can disregard one of those parts,
+    #This is equal to 2n, because 1 + 1/2 + 1/4 + 1/8 ... = 2
     def findKthLargestSelect(self, nums, k):
         return self.quickSelect(nums, 0, len(nums) - 1, len(nums) - k)
 
