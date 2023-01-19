@@ -67,11 +67,13 @@ class Solution:
 
 
 if __name__ == "__main__":
-    test = Solution()
-    input = [3,9,5,10,6,7,7]
+    # test = Solution()
+    # input = [3,9,5,10,6,7,7]
     # test.randomizedQuickSort(input, 0, len(input) - 1)
-    test.heapSort(input)
-    print(input)
+    # test.heapSort(input)
+    value = 3
+    value >>= 1
+    print(-11%7)
     # test = [[0] * 3 for i in range(3)]
     # piles = [5,3,4,5]
     # memo = [[[-1 for i in range(len(piles))] for j in range(len(piles))]for z in range(2)]

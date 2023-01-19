@@ -1,5 +1,5 @@
 class Solution:
-    
+    # Actually, this is a 0/1 knapsack problem, for each number, we can pick it or not. Let us assume dp[i][j] means whether the specific sum j can be gotten from the first i numbers. If we can pick such a series of numbers from 0-i whose sum is j, dp[i][j] is true, otherwise it is false.
     def canPartitionKnapSack(self, nums):
         total = 0
         for num in nums:
