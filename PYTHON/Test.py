@@ -22,6 +22,22 @@ class Solution:
             self.randomizedQuickSort(input, correctIndex + 1, high)
         return input
 
+# Given an integer array nums, find a  subarray that has the largest product, and return the product.
+# The test cases are generated so that the answer will fit in a 32-bit integer.
+# [3,-1,4]
+    def maximumProductSubarray(self, nums):
+        maximumSubArray = nums[0]
+        currentMaxProduct = nums[0]
+        currentMinProduct = nums[0]
+        for i in range(1, len(nums)):
+            if nums[i] < 0:
+                currentMaxProduct, currentMinProduct = currentMinProduct, currentMaxProduct
+            currentMaxProduct = max(currentMaxProduct * nums[i], nums[i])
+            currentMinProduct = min(currentMinProduct * nums[i], nums[i])            
+            # print("max: " + str(currentMaxProduct) + "; min:" + str(currentMinProduct))
+            maximumSubArray = max(maximumSubArray, currentMaxProduct)
+        return maximumSubArray
+            
     # def heapify(self, array, currentIndex, lastIndex):
     #     maxIndex = currentIndex
     #     if 2 * currentIndex + 1 <= lastIndex and array[2*currentIndex + 1] > array[maxIndex]:
@@ -67,13 +83,12 @@ class Solution:
 
 
 if __name__ == "__main__":
-    # test = Solution()
+    test = Solution()
     # input = [3,9,5,10,6,7,7]
     # test.randomizedQuickSort(input, 0, len(input) - 1)
     # test.heapSort(input)
-    value = 3
-    value >>= 1
-    print(-11%7)
+    print(test.maximumProductSubarray([1,0,-1,2,3,-5,-2]))
+    print(1%2)
     # test = [[0] * 3 for i in range(3)]
     # piles = [5,3,4,5]
     # memo = [[[-1 for i in range(len(piles))] for j in range(len(piles))]for z in range(2)]
