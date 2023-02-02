@@ -3,40 +3,24 @@ import random
 
 
 class Solution:
-    def partition(self, input, low, high):
-        randIndex = random.randrange(low, high+1)
-        input[randIndex], input[high] = input[high], input[randIndex]
-        target = input[high]
-        index = low
-        for i in range(low, high):
-            if input[i] <= target:
-                input[index], input[i] = input[i], input[index]
-                index += 1
-        input[high], input[index] = input[index], input[high]
-        return index
+    # def partition(self, input, low, high):
+    #     randIndex = random.randrange(low, high+1)
+    #     input[randIndex], input[high] = input[high], input[randIndex]
+    #     target = input[high]
+    #     index = low
+    #     for i in range(low, high):
+    #         if input[i] <= target:
+    #             input[index], input[i] = input[i], input[index]
+    #             index += 1
+    #     input[high], input[index] = input[index], input[high]
+    #     return index
 
-    def randomizedQuickSort(self, input, low, high):
-        if low < high:
-            correctIndex = self.partition(input, low, high)
-            self.randomizedQuickSort(input, low, correctIndex - 1)
-            self.randomizedQuickSort(input, correctIndex + 1, high)
-        return input
-
-# Given an integer array nums, find a  subarray that has the largest product, and return the product.
-# The test cases are generated so that the answer will fit in a 32-bit integer.
-# [3,-1,4]
-    def maximumProductSubarray(self, nums):
-        maximumSubArray = nums[0]
-        currentMaxProduct = nums[0]
-        currentMinProduct = nums[0]
-        for i in range(1, len(nums)):
-            if nums[i] < 0:
-                currentMaxProduct, currentMinProduct = currentMinProduct, currentMaxProduct
-            currentMaxProduct = max(currentMaxProduct * nums[i], nums[i])
-            currentMinProduct = min(currentMinProduct * nums[i], nums[i])            
-            # print("max: " + str(currentMaxProduct) + "; min:" + str(currentMinProduct))
-            maximumSubArray = max(maximumSubArray, currentMaxProduct)
-        return maximumSubArray
+    # def randomizedQuickSort(self, input, low, high):
+    #     if low < high:
+    #         correctIndex = self.partition(input, low, high)
+    #         self.randomizedQuickSort(input, low, correctIndex - 1)
+    #         self.randomizedQuickSort(input, correctIndex + 1, high)
+    #     return input
             
     # def heapify(self, array, currentIndex, lastIndex):
     #     maxIndex = currentIndex
@@ -59,46 +43,40 @@ class Solution:
     #         self.heapify(input, 0, index)
     #     return input
 
-    def heapify(self, nums, startIndex, lastIndex):
-        leftIndex = 2 * startIndex + 1
-        rightIndex = 2* startIndex + 2
-        maxIndex = startIndex
-        if leftIndex <= lastIndex and nums[leftIndex] > nums[maxIndex]:
-            maxIndex = leftIndex
-        if rightIndex <= lastIndex and nums[rightIndex] > nums[maxIndex]:
-            maxIndex = rightIndex
-        if maxIndex != startIndex:
-            nums[maxIndex], nums[startIndex] = nums[startIndex], nums[maxIndex]
+    def heapSort(self, nums):
+        #heapify all the parent node starting from bottom
+        for i in range((len(nums)-2)//2, -1, -1):
+            self.heapify(nums, i, len(nums)-1)
+
+        #convert the list to ascending order
+        for i in range(len(nums)-1, -1, -1):
+            nums[0], nums[i] = nums[i], nums[0]
+            self.heapify(nums, 0, i - 1)
+        return
+
+    def heapify(self, nums, index, lastIndex):
+        leftChildIndex = 2*index + 1
+        rightChildIndex = 2*index + 2
+        maxIndex = index
+        if leftChildIndex <= lastIndex and nums[maxIndex] < nums[leftChildIndex]:
+            maxIndex = leftChildIndex
+        if rightChildIndex <= lastIndex and nums[maxIndex] < nums[rightChildIndex]:
+            maxIndex = rightChildIndex
+        if maxIndex != index:
+            nums[index], nums[maxIndex] = nums[maxIndex], nums[index]
             self.heapify(nums, maxIndex, lastIndex)
         return
 
-    def heapSort(self, nums):
-        #need to heapify the array first
-        for i in range((len(nums)-1)//2, -1, -1):
-            self.heapify(nums, i, len(nums) - 1)
-        for i in range(len(nums)-1, -1, -1):
-            nums[0], nums[i] = nums[i], nums[0]
-            self.heapify(nums, 0, i-1)
-        return nums
-
-
 if __name__ == "__main__":
     test = Solution()
-    # input = [3,9,5,10,6,7,7]
+    input = [3,9,5,10,6,7,7]
     # test.randomizedQuickSort(input, 0, len(input) - 1)
-    # test.heapSort(input)
-    print(test.maximumProductSubarray([1,0,-1,2,3,-5,-2]))
-    print(1%2)
+    test.heapSort(input)
+    print(input)
+    # print(test.mergeSort([8,5,7,9,10,1,3,2]))
     # test = [[0] * 3 for i in range(3)]
     # piles = [5,3,4,5]
     # memo = [[[-1 for i in range(len(piles))] for j in range(len(piles))]for z in range(2)]
     # print(test)
     # print(memo)
     # print(type(math.inf))
-
-    # for i in range(2,3):
-    #     print(i)
-    # test = [1]
-    # print(test)
-    # del test[-1]
-    # print(test)
