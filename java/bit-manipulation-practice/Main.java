@@ -205,6 +205,56 @@ public class Main {
     return left <<= movingFactor;
   }
 
+  public static int reverseBit(int input){
+    System.out.println(Integer.toBinaryString(1<<31));
+    int output = 0;
+    while (input > 0){
+      int lastBit = input & 1;
+      input >>= 1;
+      output = (output << 1) + lastBit;
+    }
+    return output;
+  }
+
+  public static int getSum(int a, int b){
+    if (a == 0){
+      return b;
+    }
+    if (b == 0){
+      return a;
+    }
+
+//    System.out.println(Integer.toBinaryString(a));
+//    System.out.println(Integer.toBinaryString(b));
+    while (b != 0){
+      int carry = a & b;
+//      System.out.println(carry);
+      a = a ^ b;
+      b = carry << 1;
+//      System.out.println(a);
+//      System.out.println(b);
+    }
+    return a;
+  }
+
+  public static int getSubtract(int a, int b){
+    if (b == 0){
+      return a;
+    }
+//    System.out.println(Integer.toBinaryString(a));
+//    System.out.println(Integer.toBinaryString(b));
+    while (b!=0){
+//      int leftOver = (a^b)&b;
+      int leftOver = ~a&b;
+//      System.out.println(Integer.toBinaryString(leftOver));
+      a = a^b;
+//      System.out.println(Integer.toBinaryString(a));
+      b = leftOver << 1;
+    }
+
+    return a;
+  }
+
   public static void main(String[] args) {
     // String binaryString = Integer.toBinaryString(updateBits(1024,19,2,6));
     // String binaryString = binaryToString(0.75);
@@ -219,6 +269,8 @@ public class Main {
     // System.out.println(conversionAnswer(29,15));
     // System.out.println(Integer.toBinaryString(309));
     // System.out.println(Integer.toBinaryString(pairWiseSwap(309)));
-    System.out.println(rangeBitwiseAnd(1, Integer.MAX_VALUE));
+//    System.out.println(Integer.toBinaryString(reverseBit(181)));
+//    System.out.println(getSum(-2, -1));
+    System.out.println(getSubtract(-10, -2));
   }
 }
