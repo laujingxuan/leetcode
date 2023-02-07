@@ -71,7 +71,8 @@ if __name__ == "__main__":
     test = Solution()
     input = [3,9,5,10,6,7,7]
     # test.randomizedQuickSort(input, 0, len(input) - 1)
-    test.heapSort(input)
+    # test.heapSort(input)
+    input.sort()
     print(input)
     # print(test.mergeSort([8,5,7,9,10,1,3,2]))
     # test = [[0] * 3 for i in range(3)]
