@@ -43,37 +43,97 @@ class Solution:
     #         self.heapify(input, 0, index)
     #     return input
 
-    def heapSort(self, nums):
-        #heapify all the parent node starting from bottom
-        for i in range((len(nums)-2)//2, -1, -1):
-            self.heapify(nums, i, len(nums)-1)
+    def partition(self, nums, left, right):
+        #randomization
+        randomIndex = random.randrange(left, right + 1)
+        nums[randomIndex], nums[right] = nums[right], nums[randomIndex]
+        targetVal = nums[right]
+        i = left
+        index = left
+        while index < right:
+            if nums[index] <= targetVal:
+                nums[i], nums[index] = nums[index], nums[i]
+                i += 1
+            index += 1
+        nums[i], nums[right] = nums[right], nums[i]
+        return i
 
-        #convert the list to ascending order
-        for i in range(len(nums)-1, -1, -1):
-            nums[0], nums[i] = nums[i], nums[0]
+
+    def randomizedQuickSort(self, nums, left, right):
+        if right > left:
+            pivot = self.partition(nums, left, right)
+            self.randomizedQuickSort(nums, pivot + 1, right)
+            self.randomizedQuickSort(nums, left, pivot - 1)
+        return
+
+    def heapify(self, nums, index, right):
+        leftChildIndex = 2 * index + 1
+        rightChildIndex = 2 * index + 2
+        maxIndex = index
+        if leftChildIndex <= right and nums[leftChildIndex] > nums[maxIndex]:
+            maxIndex = leftChildIndex
+        if rightChildIndex <= right and nums[rightChildIndex] > nums[maxIndex]:
+            maxIndex = rightChildIndex
+        if maxIndex != index:
+            nums[maxIndex], nums[index] = nums[index], nums[maxIndex]
+            self.heapify(nums, maxIndex, right)
+        return
+
+    def heapSort(self, nums):
+        for i in range((len(nums)-2)//2, -1, -1):
+            self.heapify(nums, i, len(nums) - 1)
+
+        for i in range(len(nums)-1, 0, -1):
+            nums[i], nums[0] = nums[0], nums[i]
             self.heapify(nums, 0, i - 1)
         return
 
-    def heapify(self, nums, index, lastIndex):
-        leftChildIndex = 2*index + 1
-        rightChildIndex = 2*index + 2
-        maxIndex = index
-        if leftChildIndex <= lastIndex and nums[maxIndex] < nums[leftChildIndex]:
-            maxIndex = leftChildIndex
-        if rightChildIndex <= lastIndex and nums[maxIndex] < nums[rightChildIndex]:
-            maxIndex = rightChildIndex
-        if maxIndex != index:
-            nums[index], nums[maxIndex] = nums[maxIndex], nums[index]
-            self.heapify(nums, maxIndex, lastIndex)
-        return
+    def mergeSort(self, nums):
+        if len(nums) <= 1:
+            return nums
+        midIndex = len(nums)//2
+        leftSorted = self.mergeSort(nums[:midIndex])
+        rightSorted = self.mergeSort(nums[midIndex:])
+
+        output = []
+        leftIndex = 0
+        rightIndex = 0
+
+        while leftIndex < len(leftSorted) and rightIndex < len(rightSorted):
+            if leftSorted[leftIndex] > rightSorted[rightIndex]:
+                output.append(rightSorted[rightIndex])
+                rightIndex += 1
+            else:
+                output.append(leftSorted[leftIndex])
+                leftIndex += 1
+        output += leftSorted[leftIndex:] + rightSorted[rightIndex:]
+        print(output)
+        return output
+
+    def binarySearch(self, nums, target):
+        nums.sort()
+        left = 0
+        right = len(nums) - 1
+        while right >= left:
+            print(str(left) + ":" + str(right))
+            midIndex = (right+left)//2
+            if nums[midIndex] == target:
+                return True
+            if nums[midIndex] > target:
+                right = midIndex - 1
+            else:
+                left = midIndex + 1
+        return False
+
 
 if __name__ == "__main__":
     test = Solution()
-    input = [3,9,5,10,6,7,7]
+    input = [3,9,5,10,6,7,7,1]
     # test.randomizedQuickSort(input, 0, len(input) - 1)
     # test.heapSort(input)
-    input.sort()
-    print(input)
+    # print(input)
+    # print(test.mergeSort(input))
+    print(test.binarySearch(input, 3))
     # print(test.mergeSort([8,5,7,9,10,1,3,2]))
     # test = [[0] * 3 for i in range(3)]
     # piles = [5,3,4,5]
