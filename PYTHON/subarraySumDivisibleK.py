@@ -15,7 +15,21 @@ class Solution:
                     count += 1
         return count
 
-    def subarraysDivByK(self, nums, k):
+    def subarraysDivByKBetter(self, nums, k):    
+        checkMap = {0:1}
+        total = 0
+        totalSubArray = 0
+        for num in nums:
+            total += num
+            remainder = total%k
+            if remainder in checkMap:
+                totalSubArray += checkMap[remainder]
+            count = checkMap.get(remainder, 0)
+            checkMap[remainder] = count + 1
+        return totalSubArray
+
+    #two for loop where above only one
+    def subarraysDivByKSlightlyLessIdeal(self, nums, k):
         prefixSumArrayRemainder = [0] * len(nums)
         prefixSum = 0
         for i in range(len(nums)):

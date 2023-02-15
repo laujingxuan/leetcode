@@ -125,15 +125,52 @@ class Solution:
                 left = midIndex + 1
         return False
 
+# Given a circular integer array nums of length n, return the maximum possible sum of a non-empty subarray of nums.
+
+# A circular array means the end of the array connects to the beginning of the array. Formally, the next element of nums[i] is nums[(i + 1) % n] and the previous element of nums[i] is nums[(i - 1 + n) % n].
+
+# A subarray may only include each element of the fixed buffer nums at most once. Formally, for a subarray nums[i], nums[i + 1], ..., nums[j], there does not exist i <= k1, k2 <= j with k1 % n == k2 % n.
+    # def maxSubarraySumCircular(self, nums):
+    #     maxOutput = self.maxSubArray(nums)
+    #     for i in range(1, len(nums)):
+    #         if nums[i-1] < 0:
+    #             maxOutput = max(maxOutput, self.maxSubArray(nums[i:] + nums[:i]))
+    #     return maxOutput
+
+    # def maxSubArray(self, nums):
+    #     maxSum = nums[0]
+    #     total = maxSum
+    #     for i in range(1, len(nums)):
+    #         total = max(total + nums[i], nums[i])
+    #         maxSum = max(total, maxSum)
+        # return maxSum
+
+    def maxSubarraySumCircular(self, nums):
+        overallMax = nums[0]
+        maxSoFar = 0
+        overallMin = nums[0]
+        minSoFar = 0
+        total = 0
+        for num in nums:
+            total += num
+            maxSoFar = max(maxSoFar + num, num)
+            minSoFar = min(minSoFar + num, num)
+            overallMax = max(overallMax, maxSoFar)
+            overallMin = min(overallMin, minSoFar)
+        if overallMax > 0:
+            return max(overallMax, total - overallMin)
+        return overallMax
 
 if __name__ == "__main__":
     test = Solution()
-    input = [3,9,5,10,6,7,7,1]
+    input = [3,1,3,2,6]
+    print(test.maxSubarraySumCircular(input))
     # test.randomizedQuickSort(input, 0, len(input) - 1)
     # test.heapSort(input)
     # print(input)
     # print(test.mergeSort(input))
-    print(test.binarySearch(input, 3))
+    # print(14//3)
+    # print(test.binarySearch(input, 3))
     # print(test.mergeSort([8,5,7,9,10,1,3,2]))
     # test = [[0] * 3 for i in range(3)]
     # piles = [5,3,4,5]
