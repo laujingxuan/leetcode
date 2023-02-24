@@ -67,11 +67,12 @@ class Solution:
 
 if __name__ == "__main__":
     test = Solution()
-    input = [3,1,3,2,6]
+    input = [319776,611683,835240,602298,430007,574,142444,858606,734364,896074]
+    print(1766699 + 602298)
     # print(test.maxSubarraySumCircular(input))
     # test.quickSort(input, 0, len(input) - 1)
-    test.heapSort(input)
-    print(input)
+    # test.heapSort(input)
+    # print(input)
     # print(test.mergeSort(input))
     # print(14//3)
     # print(test.binarySearch(input, 3))
