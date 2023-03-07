@@ -66,9 +66,11 @@ class Solution:
         return nums
 
 if __name__ == "__main__":
-    test = Solution()
-    input = [319776,611683,835240,602298,430007,574,142444,858606,734364,896074]
-    print(1766699 + 602298)
+    # test = Solution()
+    # input = [319776,611683,835240,602298,430007,574,142444,858606,734364,896074]
+    # print(1766699 + 602298)
+    testOne = None
+    print(3*"a")
     # print(test.maxSubarraySumCircular(input))
     # test.quickSort(input, 0, len(input) - 1)
     # test.heapSort(input)
