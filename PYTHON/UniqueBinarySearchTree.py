@@ -21,6 +21,7 @@ class Solution:
 
 
     def numTreesCleanerBestSolution(self, n: int) -> int:
+        # https://leetcode.com/problems/unique-binary-search-trees/solutions/31666/dp-solution-in-6-lines-with-explanation-f-i-n-g-i-1-g-n-i/
         memo = [0 for i in range(n + 1)]
         memo[0] = 1
         memo[1] = 1
