@@ -2,7 +2,7 @@ import math
 import random
 
 
-class Solution:
+# class Solution:
     # def partition(self, input, low, high):
     #     randIndex = random.randrange(low, high+1)
     #     input[randIndex], input[high] = input[high], input[randIndex]
@@ -43,32 +43,11 @@ class Solution:
     #         self.heapify(input, 0, index)
     #     return input
 
-    def heapify(self, nums, index, end):
-        maxIndex = index
-        leftChild = 2*index + 1
-        rightChild = 2*index + 2
-        if leftChild <= end and nums[leftChild] > nums[maxIndex]:
-            maxIndex = leftChild
-        if rightChild <= end and nums[rightChild] > nums[maxIndex]:
-            maxIndex = rightChild
-        if maxIndex != index:
-            nums[maxIndex], nums[index] = nums[index], nums[maxIndex]
-            self.heapify(nums, maxIndex, end)
-        return
 
-    def heapSort(self, nums):
-        for i in range((len(nums) - 2)//2, -1, -1):
-            self.heapify(nums, i, len(nums) - 1)
-        
-        for i in range(len(nums)-1, 0, -1):
-            nums[0], nums[i] = nums[i], nums[0]
-            self.heapify(nums, 0, i - 1)
-        return nums
-
-if __name__ == "__main__":
-    test = Solution()
-    input = [319776,611683,835240,602298,430007,574,142444,858606,734364,896074]
-    print(1766699 + 602298)
+# if __name__ == "__main__":
+#     test = Solution()
+#     input = [319776,611683,835240,602298,430007,574,142444,858606,734364,896074]
+#     print(1766699 + 602298)
     # print(test.maxSubarraySumCircular(input))
     # test.quickSort(input, 0, len(input) - 1)
     # test.heapSort(input)

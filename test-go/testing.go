@@ -5,11 +5,25 @@ import (
 	"math"
 )
 
+var wg = sync.WaitGroup{}
+
 func main() {
-	// test := []int{7, 6, 4, 3, 1}
-	// fmt.Println(maxProfit(test))
-	test2 := []int{3, 2, 6, 5, 0, 3}
-	fmt.Println(maxProfit(test2))
+	go logger()
+	logCh <- "log message"
+	logCh <- "shutdown"
+	time.Sleep(100 * time.Milisecond)
+	doneCh <- struct{}{}
+}
+
+func logger(){
+	for {
+		select {
+		case entry := <-logCh:
+			fmt.Printf("%v\n", entry)
+		case <- doneCh:
+			break
+		}
+	}
 }
 
 func maxProfit(prices []int) int {
